@@ -1,5 +1,8 @@
 package com.github.oxarnau.transsectes_app.home.presentation.views
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -10,9 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.app_name
+import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
+import transsectesapp.composeapp.generated.resources.gepec_edc_oficial_blanc
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,8 +40,16 @@ fun HomeView() {
                 scrollBehavior = scrollBehavior
             )
         },
+        bottomBar = {
+            BottomAppBar {
+                Image(
+                    painter = painterResource(if (isSystemInDarkTheme()) Res.drawable.gepec_edc_oficial_blanc else Res.drawable.gepec_edc_oficial),
+                    contentDescription = null // TODO: use string
+                )
+            }
+        }
     ) { innerPadding ->
-        
+
     }
 
 }
