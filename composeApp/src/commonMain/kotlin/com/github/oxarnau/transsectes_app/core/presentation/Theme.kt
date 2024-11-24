@@ -1,6 +1,10 @@
 package com.github.oxarnau.transsectes_app.core.presentation
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 data class CustomColorScheme(
     val primary: Long,
@@ -27,6 +31,24 @@ fun Theme(
     isDarkTheme: Boolean,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = if (isDarkTheme) DarkColorScheme else LightColorScheme
-    PlatformTheme(isDarkTheme, colorScheme, content)
+
+    val colorScheme = if (isDarkTheme) {
+        darkColorScheme(
+            primary = Color(DarkColorScheme.primary),
+            secondary = Color(DarkColorScheme.secondary),
+            tertiary = Color(DarkColorScheme.tertiary)
+        )
+    } else {
+        lightColorScheme(
+            primary = Color(LightColorScheme.primary),
+            secondary = Color(LightColorScheme.secondary),
+            tertiary = Color(LightColorScheme.tertiary)
+        )
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        content = content
+    )
+
 }
