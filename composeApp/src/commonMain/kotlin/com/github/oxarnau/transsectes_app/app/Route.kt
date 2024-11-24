@@ -1,4 +1,9 @@
 package com.github.oxarnau.transsectes_app.app
 
-interface Route {
+import kotlinx.serialization.Serializable
+
+sealed interface Route {
+
+    @Serializable
+    data object Home: Route
 }
