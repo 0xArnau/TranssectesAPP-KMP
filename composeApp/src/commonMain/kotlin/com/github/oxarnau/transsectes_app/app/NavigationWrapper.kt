@@ -15,9 +15,21 @@ import com.github.oxarnau.transsectes_app.howto.views.HowTo6
 import com.github.oxarnau.transsectes_app.howto.views.HowTo7
 import com.github.oxarnau.transsectes_app.settings.views.SettingsView
 
+expect fun log(tag: String, message: String)
+
 @Composable
 fun NavigationWrapper() {
     val navController = rememberNavController()
+
+
+    navController.addOnDestinationChangedListener { controller, _, _ ->
+        val routes = controller
+            .currentBackStack.value
+            .map { it.destination.route }
+            .joinToString(", ")
+
+        log("NavController: BackStackLog", "BackStack: $routes")
+    }
 
     NavHost(
         navController = navController,
