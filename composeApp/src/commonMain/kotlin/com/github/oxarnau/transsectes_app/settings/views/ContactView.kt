@@ -29,8 +29,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
+import transsectesapp.composeapp.generated.resources.go_back
+import transsectesapp.composeapp.generated.resources.settings
 
 @Composable
 fun SettingsView(
@@ -45,7 +48,7 @@ fun SettingsView(
             MediumTopAppBar(
                 title = {
                     Text(
-                        "Settings",
+                        stringResource(Res.string.settings),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -54,7 +57,7 @@ fun SettingsView(
                     IconButton(onClick = { goBack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Go Back"
+                            contentDescription = stringResource(Res.string.go_back)
                         )
                     }
                 },

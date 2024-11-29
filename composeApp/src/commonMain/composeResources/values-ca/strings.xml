@@ -12,6 +12,7 @@
     <string name="home_records">Registres de transsectes</string>
     <string name="home_contact">Contacte</string>
     <!--    Contact View -->
+    <string name="contact_title">Contacte</string>
     <string name="contact_p1">Si observes una tortuga a la sorra, un rastre, cries, una tortuga ferida o morta, o qualsevol altre incident relacionat amb una tortuga marina, truca al:</string>
     <string name="contact_p2">112</string>
     <string name="contact_p3">Per a qualsevol dubte o incident relacionat amb els transsectes o les tortugues marines, contacta amb:</string>
