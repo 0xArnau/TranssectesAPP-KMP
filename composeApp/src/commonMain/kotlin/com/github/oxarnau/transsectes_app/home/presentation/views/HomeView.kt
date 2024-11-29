@@ -43,7 +43,11 @@ import transsectesapp.composeapp.generated.resources.walk
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView(navigate2Contact: () -> Unit, navigate2Settings: () -> Unit) {
+fun HomeView(
+    navigate2HowTo: () -> Unit,
+    navigate2Contact: () -> Unit,
+    navigate2Settings: () -> Unit,
+) {
     val scrollBehavior =
         TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
@@ -80,13 +84,17 @@ fun HomeView(navigate2Contact: () -> Unit, navigate2Settings: () -> Unit) {
             }
         }
     ) { innerPadding ->
-        ScrollContent(innerPadding, navigate2Contact)
+        ScrollContent(innerPadding, navigate2HowTo, navigate2Contact)
     }
 
 }
 
 @Composable
-fun ScrollContent(innerPadding: PaddingValues, navigate2Contact: () -> Unit) {
+fun ScrollContent(
+    innerPadding: PaddingValues,
+    navigate2HowTo: () -> Unit,
+    navigate2Contact: () -> Unit,
+) {
 
     LazyColumn(
         modifier = Modifier
@@ -102,7 +110,7 @@ fun ScrollContent(innerPadding: PaddingValues, navigate2Contact: () -> Unit) {
                 text = stringResource(Res.string.home_how_to),
                 size = 116.dp
             ) {
-                TODO()
+                navigate2HowTo()
             }
         }
         item {

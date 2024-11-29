@@ -51,4 +51,26 @@
     <string name="gepec_info_website">https://gepec.cat</string>
     <string name="gepec_info_email_especies">especies@gepec.cat</string>
     <string name="gepec_info_email_voluntariat">voluntariat@gepec.cat</string>
+    <!-- Cómo hacerlo -->
+    <string name="how2_title">Cómo hacer un transecto</string>
+    <string name="how2_1_title">Transectos</string>
+    <string name="how2_1_p1">Las encuestas consisten en realizar patrullas a lo largo de la playa para detectar posibles rastros de anidamiento de tortugas durante el periodo comprendido entre el 1 de junio y el 31 de octubre.</string>
+    <string name="how2_1_p2">Se recomienda realizar estas patrullas entre las 22:00 y las 08:00 del día siguiente, aunque las primeras horas de la noche son las más adecuadas para ello.</string>
+    <string name="how2_2_title">¿Qué estamos buscando?</string>
+    <string name="how2_2_p1">Cuando una tortuga emerge del mar hacia la playa para anidar, se arrastra utilizando sus aletas como si fueran patas. Este movimiento deja un rastro muy distintivo ascendiendo hacia la playa.</string>
+    <string name="how2_2_p2">Cuando encuentra un lugar adecuado, cava el nido, pone los huevos, lo cubre y regresa al mar, dejando un rastro con las mismas características que el ascenso pero en dirección al mar, a menudo con una línea en el medio por la que arrastra un tubo a través del cual han salido los huevos.</string>
+    <string name="how2_3_title">¿Qué estamos buscando?</string>
+    <string name="how2_3_p1">Un reto aún mayor sería encontrar crías de tortuga entre agosto y octubre, saliendo de nidos no detectados y caminando por la arena hacia el mar. Esto es extremadamente poco probable, ya que eclosionan de noche y son muy pequeñas.</string>
+    <string name="how2_3_p2">Si encontramos pequeñas crías o una tortuga grande viva o muerta fuera del agua, debemos llamar rápidamente al:</string>
+    <string name="how2_3_p3">112</string>
+    <string name="how2_4_title">Iluminación</string>
+    <string name="how2_4_p1">Puedes llevar una linterna o una lámpara frontal con luz roja, aunque rara vez es necesaria para caminar. La utilizaremos si no estamos seguros de algo durante el transecto, pero la luz de la luna suele ser suficiente. Siempre que sea posible, mantén la linterna apagada y camina en silencio. Si no tenemos suficiente luz para observar los rastros, sujetaremos la linterna con el brazo extendido hacia el suelo para resaltar mejor la arena y el relieve. Nunca apuntes la linterna hacia el agua, ya que podría asustar a una tortuga si está intentando salir.</string>
+    <string name="how2_4_p2">Puedes poner papel celofán rojo en la linterna o frente a la linterna del teléfono móvil.</string>
+    <string name="how2_5_title">Sensibilización</string>
+    <string name="how2_5_p1">Podemos aprovechar el paseo para informar y concienciar a las personas o grupos que encontremos en la playa (atletas, familias, pescadores y otros) para que nos ayuden llamando al 112 si presencian un anidamiento o encuentran rastros. Siempre a nuestra discreción y voluntad.</string>
+    <string name="how2_6_title">Comenzar un transecto</string>
+    <string name="how2_6_p1">Comenzaremos un transecto en una zona específica de la playa y activaremos el botón "INICIAR TRANSECTO".</string>
+    <string name="how2_6_p2">Caminaremos por la playa, junto a la orilla del mar, observando los primeros metros de la arena seca ondulada.</string>
+    <string name="how2_7_title">Finalizar transecto</string>
+    <string name="how2_7_p1">Una vez que terminemos nuestra ruta, accederemos a la sección "INICIAR TRANSECTO" y pulsaremos "DETENER TRANSECTO", lo que nos llevará a una pantalla donde debemos completar los siguientes campos. Si encontramos la playa labrada por una máquina que podría borrar los rastros, registraremos el número de personas informadas, anotaremos observaciones interesantes, etc., y enviaremos los datos.</string>
 </resources>

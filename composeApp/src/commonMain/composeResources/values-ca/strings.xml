@@ -51,4 +51,26 @@
     <string name="gepec_info_website">https://gepec.cat</string>
     <string name="gepec_info_email_especies">especies@gepec.cat</string>
     <string name="gepec_info_email_voluntariat">voluntariat@gepec.cat</string>
+    <!-- Com fer-ho -->
+    <string name="how2_title">Com fer un transecte</string>
+    <string name="how2_1_title">Transectes</string>
+    <string name="how2_1_p1">Les enquestes consisteixen en realitzar patrulles al llarg de la platja per detectar possibles rastres de nidificació de tortugues durant el període comprès entre l'1 de juny i el 31 d'octubre.</string>
+    <string name="how2_1_p2">Es recomana realitzar aquestes patrulles entre les 22:00 i les 08:00 de l'endemà, tot i que les primeres hores de la nit són les més adequades per a això.</string>
+    <string name="how2_2_title">Què busquem?</string>
+    <string name="how2_2_p1">Quan una tortuga emergeix del mar cap a la platja per nidificar, es desplaça utilitzant les aletes com si fossin potes. Aquest moviment deixa un rastre molt distintiu ascendint cap a la platja.</string>
+    <string name="how2_2_p2">Quan troba un lloc adequat, cava el niu, posa els ous, els cobreix i torna al mar, deixant un rastre amb les mateixes característiques que l'ascens però en direcció al mar, sovint amb una línia pel mig per arrossegar un tub pel qual han sortit els ous.</string>
+    <string name="how2_3_title">Què busquem?</string>
+    <string name="how2_3_p1">Un repte encara més gran seria trobar cries de tortuga entre agost i octubre, sortint de nius no detectats i caminant per l'arena cap al mar. Això és extremadament poc probable, ja que eclosionen a la nit i són molt petites.</string>
+    <string name="how2_3_p2">Si trobem petites cries o una tortuga gran viva o morta fora de l'aigua, hem de trucar ràpidament al:</string>
+    <string name="how2_3_p3">112</string>
+    <string name="how2_4_title">Il·luminació</string>
+    <string name="how2_4_p1">Podeu portar una llanterna o un frontal amb llum roja, tot i que rara vegada és necessari per caminar. La farem servir si no estem segurs de res durant el transecte, però la llum de la lluna sol ser suficient. Sempre que sigui possible, mantingueu la llanterna apagada i camineu en silenci. Si no tenim prou llum per observar els rastres, mantindrem la llanterna amb el braç estès cap al terra per ressaltar millor l'arena i el relleu. Mai apunteu la llanterna cap a l'aigua, ja que podria espantar una tortuga si està intentant sortir.</string>
+    <string name="how2_4_p2">Podeu posar paper celofà vermell a la llanterna o davant de la llanterna del telèfon mòbil.</string>
+    <string name="how2_5_title">Sensibilització</string>
+    <string name="how2_5_p1">Podem aprofitar el passeig per informar i conscienciar les persones o grups que trobem a la platja (atletes, famílies, pescadors i altres) perquè ens ajudin trucant al 112 si veuen un niu o troben rastres. Sempre a la nostra discreció i voluntat.</string>
+    <string name="how2_6_title">Començar un transecte</string>
+    <string name="how2_6_p1">Començarem un transecte en una zona específica de la platja i activarem el botó "INICIAR TRANSECTE".</string>
+    <string name="how2_6_p2">Caminarem per la platja, vora la orilla del mar, observant els primers metres de l'arena seca ondulada.</string>
+    <string name="how2_7_title">Acabar el transecte</string>
+    <string name="how2_7_p1">Un cop haguem acabat la nostra ruta, accedirem a la secció "INICIAR TRANSECTE" i premem "PARAR TRANSECTE", la qual cosa ens portarà a una pantalla on haurem de completar els següents camps. Si trobem la platja treballada per una màquina que podria esborrar els rastres, registrarem el nombre de persones informades, anotarem observacions interessants, etc., i enviarem les dades.</string>
 </resources>
