@@ -7,8 +7,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,11 +38,12 @@ import transsectesapp.composeapp.generated.resources.home_how_to
 import transsectesapp.composeapp.generated.resources.home_records
 import transsectesapp.composeapp.generated.resources.home_start
 import transsectesapp.composeapp.generated.resources.route
+import transsectesapp.composeapp.generated.resources.settings
 import transsectesapp.composeapp.generated.resources.walk
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView() {
+fun HomeView(navigate2Settings: () -> Unit) {
     val scrollBehavior =
         TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
@@ -52,6 +57,16 @@ fun HomeView() {
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
+                },
+                actions = {
+                    IconButton(onClick = {
+                        navigate2Settings()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Settings,
+                            contentDescription = stringResource(Res.string.settings)
+                        )
+                    }
                 },
                 scrollBehavior = scrollBehavior
             )
