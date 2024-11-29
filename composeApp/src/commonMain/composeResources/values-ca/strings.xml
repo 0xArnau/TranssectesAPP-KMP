@@ -1,4 +1,53 @@
 <resources>
+    <!--    -->
     <string name="app_name">Transsectes APP</string>
-    <string name="settings">Opcions</string>
+    <string name="settings">Configuració</string>
+    <string name="cancel">Cancel·lar</string>
+    <string name="send">Enviar</string>
+    <string name="go_back">Tornar</string>
+    <string name="Delete">Eliminar</string>
+    <!--    Home View   -->
+    <string name="home_how_to">Com fer un transsecte</string>
+    <string name="home_start">Iniciar un transsecte</string>
+    <string name="home_records">Registres de transsectes</string>
+    <string name="home_contact">Contacte</string>
+    <!--    Contact View -->
+    <string name="contact_p1">Si observes una tortuga a la sorra, un rastre, cries, una tortuga ferida o morta, o qualsevol altre incident relacionat amb una tortuga marina, truca al:</string>
+    <string name="contact_p2">112</string>
+    <string name="contact_p3">Per a qualsevol dubte o incident relacionat amb els transsectes o les tortugues marines, contacta amb:</string>
+    <string name="contact_p4">Telèfons d'emergència</string>
+    <string name="contact_p5">6222651374</string>
+    <string name="contact_p6">També pots visitar el nostre lloc web</string>
+    <!--    Start a transect View   -->
+    <string name="start_enable_gps">Activa el servei de GPS i torna</string>
+    <string name="start_gps_disabled">El servei de GPS està desactivat</string>
+    <string name="start_gps_background_title">Servei de GPS en segon pla desactivat</string>
+    <string name="start_gps_background_p1">Si us plau, ves a la configuració de l’app (SO), activa el servei GPS a "SEMPRE" i reinicia l'app</string>
+    <string name="start_start">Iniciar un transsecte</string>
+    <string name="start_stop">Aturar un transsecte</string>
+    <string name="start_add_new">Afegir noves marques</string>
+    <string name="start_add_new_button">Afegir nou geopunt</string>
+    <string name="start_stop_title">Omple els camps següents</string>
+    <string name="start_stop_question1">Ha passat el tractor?</string>
+    <string name="start_stop_question2">Nombre d'informadors</string>
+    <string name="start_stop_question3">Observacions</string>
+    <string name="start_stop_note_title">Nota:</string>
+    <string name="start_stop_note_p1">Si vols continuar amb el transsecte actual, has de prémer el botó a la cantonada superior esquerra per tornar.</string>
+    <string name="start_stop_note_p2">Si prems el botó "cancel·lar", es perdran totes les dades del transsecte actual.</string>
+    <string name="start_stop_note_p3">Si prems el botó "enviar", les dades del transsecte actual s’enviaran (es guardaran), i podràs començar un nou transsecte.</string>
+    <string name="start_stop_cancel_title">Cancel·lar transsecte</string>
+    <string name="start_stop_cancel_p1">Si continues (eliminar), la informació es perdrà i no es podrà recuperar.</string>
+    <string name="start_stop_send_title">Guardar transsecte</string>
+    <string name="start_stop_send_p1">Si continues (guardar), la informació es guardarà i no es podrà modificar.</string>
+    <!--    Transect Records View   -->
+    <string name="records_transects">Transsectes</string>
+    <string name="records_all_transects">Tots els transsectes</string>
+    <string name="records_download">Descarregar</string>
+    <string name="records_remove">Eliminar</string>
+    <string name="records_remove_button">Eliminar tots els transsectes</string>
+    <string name="records_remove_p1">Aquesta acció no es pot desfer, vés amb compte.</string>
+    <!--    GePeC Info  -->
+    <string name="gepec_info_website">https://gepec.cat</string>
+    <string name="gepec_info_email_especies">especies@gepec.cat</string>
+    <string name="gepec_info_email_voluntariat">voluntariat@gepec.cat</string>
 </resources>

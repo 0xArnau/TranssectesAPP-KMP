@@ -1,4 +1,53 @@
 <resources>
+    <!--    -->
     <string name="app_name">Transsectes APP</string>
     <string name="settings">Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    <string name="go_back">Go back</string>
+    <string name="Delete">Delete</string>
+    <!--    Home View   -->
+    <string name="home_how_to">How to do a transect</string>
+    <string name="home_start">Start a transect</string>
+    <string name="home_records">Transect records</string>
+    <string name="home_contact">Contact</string>
+    <!--    Contact View -->
+    <string name="contact_p1">If you observe a turtle on the sand, a track, hatchlings, an injured or dead turtle, or any other incident related to a sea turtle, call:</string>
+    <string name="contact_p2">112</string>
+    <string name="contact_p3">For any doubts or incidents related to transects or sea turtles, contact:</string>
+    <string name="contact_p4">Emergency phone numbers</string>
+    <string name="contact_p5">6222651374</string>
+    <string name="contact_p6">Visit our website for more information</string>
+    <!--    Start a transect View   -->
+    <string name="start_enable_gps">Enable GPS service and go back</string>
+    <string name="start_gps_disabled">GPS service is disabled</string>
+    <string name="start_gps_background_title">GPS background service disabled</string>
+    <string name="start_gps_background_p1">Please go to app settings (OS) and enable GPS service to 'ALWAYS' and relaunch the app</string>
+    <string name="start_start">Start a transect</string>
+    <string name="start_stop">Stop a transect</string>
+    <string name="start_add_new">Add new marks</string>
+    <string name="start_add_new_button">Add new geopoint</string>
+    <string name="start_stop_title">Fill in the following fields</string>
+    <string name="start_stop_question1">Has the tractor passed?</string>
+    <string name="start_stop_question2">Number of informers</string>
+    <string name="start_stop_question3">Observations</string>
+    <string name="start_stop_note_title">Note:</string>
+    <string name="start_stop_note_p1">If you want to continue with the current transect, you must press the button at the top left to go back.</string>
+    <string name="start_stop_note_p2">If you press the 'cancel' button, all data regarding the current transect will be lost.</string>
+    <string name="start_stop_note_p3">If you press the 'send' button, the data for the current transect will be sent (saved), and you can start a new transect.</string>
+    <string name="start_stop_cancel_title">Cancel transect</string>
+    <string name="start_stop_cancel_p1">If you continue (delete), the information will be lost and cannot be recovered.</string>
+    <string name="start_stop_send_title">Save transect</string>
+    <string name="start_stop_send_p1">If you continue (save), the information will be saved and cannot be modified.</string>
+    <!--    Transect Records View   -->
+    <string name="records_transects">Transects</string>
+    <string name="records_all_transects">All transects</string>
+    <string name="records_download">Download</string>
+    <string name="records_remove">Remove</string>
+    <string name="records_remove_button">Remove all transects</string>
+    <string name="records_remove_p1">This action cannot be undone, be careful.</string>
+    <!--    GePeC Info  -->
+    <string name="gepec_info_website">https://gepec.cat</string>
+    <string name="gepec_info_email_especies">especies@gepec.cat</string>
+    <string name="gepec_info_email_voluntariat">voluntariat@gepec.cat</string>
 </resources>

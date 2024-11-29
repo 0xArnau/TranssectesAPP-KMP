@@ -1,4 +1,53 @@
 <resources>
+    <!--    -->
     <string name="app_name">Transsectes APP</string>
-    <string name="settings">Opciones</string>
+    <string name="settings">Configuración</string>
+    <string name="cancel">Cancelar</string>
+    <string name="send">Enviar</string>
+    <string name="go_back">Volver</string>
+    <string name="Delete">Eliminar</string>
+    <!--    Home View   -->
+    <string name="home_how_to">Cómo hacer un transecto</string>
+    <string name="home_start">Iniciar un transecto</string>
+    <string name="home_records">Registros de transectos</string>
+    <string name="home_contact">Contacto</string>
+    <!--    Contact View -->
+    <string name="contact_p1">Si observas una tortuga en la arena, un rastro, crías, una tortuga herida o muerta, o cualquier otro incidente relacionado con una tortuga marina, llama al:</string>
+    <string name="contact_p2">112</string>
+    <string name="contact_p3">Para cualquier duda o incidente relacionado con los transectos o las tortugas marinas, contacta con:</string>
+    <string name="contact_p4">Teléfonos de emergencia</string>
+    <string name="contact_p5">6222651374</string>
+    <string name="contact_p6">También puedes visitar nuestro sitio web</string>
+    <!--    Start a transect View   -->
+    <string name="start_enable_gps">Activa el servicio de GPS y vuelve</string>
+    <string name="start_gps_disabled">El servicio de GPS está desactivado</string>
+    <string name="start_gps_background_title">Servicio de GPS en segundo plano desactivado</string>
+    <string name="start_gps_background_p1">Por favor, ve a la configuración de la app (SO), activa el servicio GPS en "SIEMPRE" y vuelve a iniciar la app</string>
+    <string name="start_start">Iniciar un transecto</string>
+    <string name="start_stop">Detener un transecto</string>
+    <string name="start_add_new">Añadir nuevas marcas</string>
+    <string name="start_add_new_button">Añadir nuevo geopunto</string>
+    <string name="start_stop_title">Completa los siguientes campos</string>
+    <string name="start_stop_question1">¿Ha pasado el tractor?</string>
+    <string name="start_stop_question2">Número de informadores</string>
+    <string name="start_stop_question3">Observaciones</string>
+    <string name="start_stop_note_title">Nota:</string>
+    <string name="start_stop_note_p1">Si deseas continuar con el transecto actual, debes pulsar el botón en la esquina superior izquierda para volver.</string>
+    <string name="start_stop_note_p2">Si pulsas el botón "cancelar", se perderán todos los datos del transecto actual.</string>
+    <string name="start_stop_note_p3">Si pulsas el botón "enviar", los datos del transecto actual se enviarán (guardarán), y podrás iniciar un nuevo transecto.</string>
+    <string name="start_stop_cancel_title">Cancelar transecto</string>
+    <string name="start_stop_cancel_p1">Si continúas (eliminar), la información se perderá y no se podrá recuperar.</string>
+    <string name="start_stop_send_title">Guardar transecto</string>
+    <string name="start_stop_send_p1">Si continúas (guardar), la información se guardará y no podrá modificarse.</string>
+    <!--    Transect Records View   -->
+    <string name="records_transects">Transectos</string>
+    <string name="records_all_transects">Todos los transectos</string>
+    <string name="records_download">Descargar</string>
+    <string name="records_remove">Eliminar</string>
+    <string name="records_remove_button">Eliminar todos los transectos</string>
+    <string name="records_remove_p1">Esta acción no se puede deshacer, ten cuidado.</string>
+    <!--    GePeC Info  -->
+    <string name="gepec_info_website">https://gepec.cat</string>
+    <string name="gepec_info_email_especies">especies@gepec.cat</string>
+    <string name="gepec_info_email_voluntariat">voluntariat@gepec.cat</string>
 </resources>
