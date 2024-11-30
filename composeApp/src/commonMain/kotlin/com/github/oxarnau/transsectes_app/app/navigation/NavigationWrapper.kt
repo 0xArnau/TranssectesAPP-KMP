@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.github.oxarnau.transsectes_app.features.auth.presentation.views.SignInView
 import com.github.oxarnau.transsectes_app.features.contact.presentation.views.ContactView
 import com.github.oxarnau.transsectes_app.features.home.presentation.views.HomeView
 import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo1
@@ -33,8 +34,12 @@ fun NavigationWrapper() {
 
     NavHost(
         navController = navController,
-        startDestination = Route.Home
+        startDestination = Route.SignIn
     ) {
+        composable<Route.SignIn> {
+            SignInView(navController)
+        }
+
         composable<Route.Home> {
             HomeView(
                 navigate2HowTo = { navController.navigate(Route.HowTo1) },

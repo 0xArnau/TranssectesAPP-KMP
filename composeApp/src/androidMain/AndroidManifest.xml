@@ -3,6 +3,7 @@
 
     <!--    TODO: remove android:enableOnBackInvokedCallback="true" only use for testing    -->
     <application
+        android:name=".TranssectesAPP"
         android:allowBackup="true"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
