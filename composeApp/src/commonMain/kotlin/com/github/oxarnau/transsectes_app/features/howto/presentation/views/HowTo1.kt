@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.features.howto.views
+package com.github.oxarnau.transsectes_app.features.howto.presentation.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -30,14 +30,15 @@ import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
 import transsectesapp.composeapp.generated.resources.go_back
-import transsectesapp.composeapp.generated.resources.how2_5_p1
-import transsectesapp.composeapp.generated.resources.how2_5_title
-import transsectesapp.composeapp.generated.resources.how2_6_title
-import transsectesapp.composeapp.generated.resources.how_to_5
+import transsectesapp.composeapp.generated.resources.how2_1_p1
+import transsectesapp.composeapp.generated.resources.how2_1_p2
+import transsectesapp.composeapp.generated.resources.how2_1_title
+import transsectesapp.composeapp.generated.resources.how2_2_title
+import transsectesapp.composeapp.generated.resources.how_to_1
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HowTo5(
+fun HowTo1(
     goBack: () -> Unit,
     goNext: () -> Unit,
 ) {
@@ -51,7 +52,7 @@ fun HowTo5(
             MediumTopAppBar(
                 title = {
                     Text(
-                        stringResource(Res.string.how2_5_title),
+                        stringResource(Res.string.how2_1_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -70,7 +71,7 @@ fun HowTo5(
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = stringResource(Res.string.how2_6_title)
+                            contentDescription = stringResource(Res.string.how2_2_title)
                         )
                     }
                 },
@@ -96,7 +97,7 @@ fun HowTo5(
         ) {
             item {
                 Text(
-                    text = stringResource(Res.string.how2_5_p1),
+                    text = stringResource(Res.string.how2_1_p1),
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
@@ -104,8 +105,16 @@ fun HowTo5(
 
             item {
                 Image(
-                    painter = painterResource(Res.drawable.how_to_5),
+                    painter = painterResource(Res.drawable.how_to_1),
                     contentDescription = null, // TODO
+                )
+            }
+
+            item {
+                Text(
+                    text = stringResource(Res.string.how2_1_p2),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
             }
         }

@@ -4,16 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.github.oxarnau.transsectes_app.features.contact.views.ContactView
+import com.github.oxarnau.transsectes_app.features.contact.presentation.views.ContactView
 import com.github.oxarnau.transsectes_app.features.home.presentation.views.HomeView
-import com.github.oxarnau.transsectes_app.features.howto.views.HowTo1
-import com.github.oxarnau.transsectes_app.features.howto.views.HowTo2
-import com.github.oxarnau.transsectes_app.features.howto.views.HowTo3
-import com.github.oxarnau.transsectes_app.features.howto.views.HowTo4
-import com.github.oxarnau.transsectes_app.features.howto.views.HowTo5
-import com.github.oxarnau.transsectes_app.features.howto.views.HowTo6
-import com.github.oxarnau.transsectes_app.features.howto.views.HowTo7
-import com.github.oxarnau.transsectes_app.features.settings.views.SettingsView
+import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo1
+import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo2
+import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo3
+import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo4
+import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo5
+import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo6
+import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo7
+import com.github.oxarnau.transsectes_app.features.settings.presentation.views.SettingsView
 
 expect fun log(tag: String, message: String)
 

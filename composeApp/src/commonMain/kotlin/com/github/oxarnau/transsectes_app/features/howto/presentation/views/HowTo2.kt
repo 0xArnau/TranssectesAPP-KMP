@@ -1,17 +1,14 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
-package com.github.oxarnau.transsectes_app.features.settings.views
+package com.github.oxarnau.transsectes_app.features.howto.presentation.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,14 +30,21 @@ import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
 import transsectesapp.composeapp.generated.resources.go_back
-import transsectesapp.composeapp.generated.resources.settings
+import transsectesapp.composeapp.generated.resources.how2_2_p1
+import transsectesapp.composeapp.generated.resources.how2_2_p2
+import transsectesapp.composeapp.generated.resources.how2_2_title
+import transsectesapp.composeapp.generated.resources.how2_3_title
+import transsectesapp.composeapp.generated.resources.how_to_2
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsView(
+fun HowTo2(
     goBack: () -> Unit,
+    goNext: () -> Unit,
 ) {
     val scrollBehavior =
         TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -48,7 +52,7 @@ fun SettingsView(
             MediumTopAppBar(
                 title = {
                     Text(
-                        stringResource(Res.string.settings),
+                        stringResource(Res.string.how2_2_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -58,6 +62,16 @@ fun SettingsView(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(Res.string.go_back)
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        goNext()
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = stringResource(Res.string.how2_3_title)
                         )
                     }
                 },
@@ -77,36 +91,32 @@ fun SettingsView(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = innerPadding
         ) {
             item {
-                UserRole()
+                Text(
+                    text = stringResource(Res.string.how2_2_p1),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
+
+            item {
+                Image(
+                    painter = painterResource(Res.drawable.how_to_2),
+                    contentDescription = null, // TODO
+                )
+            }
+
+            item {
+                Text(
+                    text = stringResource(Res.string.how2_2_p2),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
             }
         }
-    }
-}
-
-
-@Composable
-fun UserRole(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Icon(
-            imageVector = Icons.Filled.Person,
-            contentDescription = "Person icon",
-            modifier = Modifier
-                .size(128.dp)
-        )
-        // TODO: only show technician if user is a technician
-        Text(
-            text = "Technician",
-            textAlign = TextAlign.Center
-        )
     }
 }

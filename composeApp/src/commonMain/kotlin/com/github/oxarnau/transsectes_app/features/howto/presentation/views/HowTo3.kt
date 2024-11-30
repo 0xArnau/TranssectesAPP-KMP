@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.features.howto.views
+package com.github.oxarnau.transsectes_app.features.howto.presentation.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
