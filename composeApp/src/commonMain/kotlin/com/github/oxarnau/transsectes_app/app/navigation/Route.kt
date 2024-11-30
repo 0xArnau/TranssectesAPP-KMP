@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.app
+package com.github.oxarnau.transsectes_app.app.navigation
 
 import kotlinx.serialization.Serializable
 

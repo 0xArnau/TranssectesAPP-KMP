@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.howto.views
+package com.github.oxarnau.transsectes_app.features.howto.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,26 +22,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
 import transsectesapp.composeapp.generated.resources.go_back
-import transsectesapp.composeapp.generated.resources.how2_3_p1
-import transsectesapp.composeapp.generated.resources.how2_3_p2
-import transsectesapp.composeapp.generated.resources.how2_3_p3
-import transsectesapp.composeapp.generated.resources.how2_3_title
+import transsectesapp.composeapp.generated.resources.how2_4_p1
+import transsectesapp.composeapp.generated.resources.how2_4_p2
 import transsectesapp.composeapp.generated.resources.how2_4_title
-import transsectesapp.composeapp.generated.resources.how_to_3
+import transsectesapp.composeapp.generated.resources.how2_5_title
+import transsectesapp.composeapp.generated.resources.how_to_4
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HowTo3(
+fun HowTo4(
     goBack: () -> Unit,
     goNext: () -> Unit,
 ) {
@@ -55,7 +52,7 @@ fun HowTo3(
             MediumTopAppBar(
                 title = {
                     Text(
-                        stringResource(Res.string.how2_3_title),
+                        stringResource(Res.string.how2_4_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -74,7 +71,7 @@ fun HowTo3(
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = stringResource(Res.string.how2_4_title)
+                            contentDescription = stringResource(Res.string.how2_5_title)
                         )
                     }
                 },
@@ -100,7 +97,7 @@ fun HowTo3(
         ) {
             item {
                 Text(
-                    text = stringResource(Res.string.how2_3_p1),
+                    text = stringResource(Res.string.how2_4_p1),
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
@@ -108,26 +105,16 @@ fun HowTo3(
 
             item {
                 Image(
-                    painter = painterResource(Res.drawable.how_to_3),
+                    painter = painterResource(Res.drawable.how_to_4),
                     contentDescription = null, // TODO
                 )
             }
 
             item {
                 Text(
-                    text = stringResource(Res.string.how2_3_p2),
+                    text = stringResource(Res.string.how2_4_p2),
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                )
-            }
-
-            item {
-                Text(
-                    text = stringResource(Res.string.how2_3_p3),
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp
+                    textAlign = TextAlign.Center
                 )
             }
         }

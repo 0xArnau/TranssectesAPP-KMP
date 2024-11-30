@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.home.presentation.views
+package com.github.oxarnau.transsectes_app.features.home.presentation.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme

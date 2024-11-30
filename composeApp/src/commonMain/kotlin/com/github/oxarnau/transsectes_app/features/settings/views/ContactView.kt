@@ -1,14 +1,17 @@
-package com.github.oxarnau.transsectes_app.howto.views
+@file:OptIn(ExperimentalMaterial3Api::class)
+
+package com.github.oxarnau.transsectes_app.features.settings.views
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -30,20 +33,14 @@ import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
 import transsectesapp.composeapp.generated.resources.go_back
-import transsectesapp.composeapp.generated.resources.how2_5_p1
-import transsectesapp.composeapp.generated.resources.how2_5_title
-import transsectesapp.composeapp.generated.resources.how2_6_title
-import transsectesapp.composeapp.generated.resources.how_to_5
+import transsectesapp.composeapp.generated.resources.settings
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HowTo5(
+fun SettingsView(
     goBack: () -> Unit,
-    goNext: () -> Unit,
 ) {
     val scrollBehavior =
         TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -51,7 +48,7 @@ fun HowTo5(
             MediumTopAppBar(
                 title = {
                     Text(
-                        stringResource(Res.string.how2_5_title),
+                        stringResource(Res.string.settings),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -61,16 +58,6 @@ fun HowTo5(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(Res.string.go_back)
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = {
-                        goNext()
-                    }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                            contentDescription = stringResource(Res.string.how2_6_title)
                         )
                     }
                 },
@@ -90,24 +77,36 @@ fun HowTo5(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = innerPadding
         ) {
             item {
-                Text(
-                    text = stringResource(Res.string.how2_5_p1),
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
-            }
-
-            item {
-                Image(
-                    painter = painterResource(Res.drawable.how_to_5),
-                    contentDescription = null, // TODO
-                )
+                UserRole()
             }
         }
+    }
+}
+
+
+@Composable
+fun UserRole(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Person,
+            contentDescription = "Person icon",
+            modifier = Modifier
+                .size(128.dp)
+        )
+        // TODO: only show technician if user is a technician
+        Text(
+            text = "Technician",
+            textAlign = TextAlign.Center
+        )
     }
 }
