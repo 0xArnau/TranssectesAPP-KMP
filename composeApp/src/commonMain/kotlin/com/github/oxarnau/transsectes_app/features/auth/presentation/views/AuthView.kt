@@ -7,13 +7,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.oxarnau.transsectes_app.shared.components.CustomButton
 import org.jetbrains.compose.resources.painterResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.imatge_tortuga
@@ -70,40 +67,20 @@ fun AuthView(go2SignIn: () -> Unit) {
         Spacer(modifier = Modifier.weight(2f))
 
         Column {
-            CustomButton(text = "Create account", goto = {})
+            CustomButton(
+                text = "Create account",
+                goto = {},
+                modifier = Modifier.fillMaxWidth()
+            )
 
-            CustomButton(text = "Sign In", goto = go2SignIn)
+            CustomButton(
+                text = "Sign In",
+                goto = go2SignIn,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
 
 
-@Composable
-fun CustomButton(
-    text: String,
-    goto: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Button(
-        onClick = goto,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(
-                horizontal = 16.dp,
-                vertical = 8.dp
-            ),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
-        ),
-        shape = ButtonDefaults.shape
-    ) {
-        Text(
-            text = text,
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium,
-            )
-        )
-    }
-}
+

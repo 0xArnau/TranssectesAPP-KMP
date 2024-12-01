@@ -66,6 +66,8 @@ kotlin {
             implementation(libs.bundles.coil)
 
             implementation(libs.gitlive.firebase.auth)
+
+            implementation(libs.material.icons.extended)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
