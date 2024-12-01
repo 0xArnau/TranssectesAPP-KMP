@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.github.oxarnau.transsectes_app.features.auth.presentation.views.AuthView
 import com.github.oxarnau.transsectes_app.features.auth.presentation.views.SignInView
 import com.github.oxarnau.transsectes_app.features.contact.presentation.views.ContactView
 import com.github.oxarnau.transsectes_app.features.home.presentation.views.HomeView
@@ -40,13 +41,18 @@ fun NavigationWrapper() {
         composable<Route.Splash> {
             log("NavController", "Route.Splash")
             SplashView {
-                navController.navigate(Route.SignIn) {
-                    popUpTo(Route.SignIn) { inclusive = true }
+                navController.navigate(Route.Auth) {
+                    popUpTo(Route.Auth) { inclusive = true }
                     launchSingleTop = true
                 }
             }
         }
 
+        composable<Route.Auth> {
+            AuthView(go2SignIn = {
+                navController.navigate(Route.SignIn)
+            })
+        }
 
         composable<Route.SignIn> {
             SignInView(navController)
