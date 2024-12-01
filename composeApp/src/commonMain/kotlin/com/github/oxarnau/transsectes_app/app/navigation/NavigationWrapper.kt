@@ -49,9 +49,7 @@ fun NavigationWrapper() {
         }
 
         composable<Route.Auth> {
-            AuthView(go2SignIn = {
-                navController.navigate(Route.SignIn)
-            })
+            AuthView(navController)
         }
 
         composable<Route.SignIn> {

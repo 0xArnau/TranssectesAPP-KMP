@@ -4,6 +4,7 @@ import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepositor
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.firebase.AuthRemoteDataSourceImpl
 import com.github.oxarnau.transsectes_app.features.auth.data.repositoiries.AuthRepositoryImpl
+import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
@@ -16,4 +17,5 @@ val sharedModule = module {
     singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
 
     viewModel { SignInViewModel(authRepository = get()) }
+    viewModel { AuthViewModel(authRepository = get()) }
 }

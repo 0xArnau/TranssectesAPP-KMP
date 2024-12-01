@@ -31,6 +31,7 @@ import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.Aut
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.shared.components.CustomButton
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.imatge_tortuga
 
@@ -43,7 +44,7 @@ import transsectesapp.composeapp.generated.resources.imatge_tortuga
 @Composable
 fun AuthView(
     navController: NavController,
-    viewModel: AuthViewModel
+    viewModel: AuthViewModel = koinViewModel(),
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
