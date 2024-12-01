@@ -15,6 +15,7 @@ import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowT
 import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo6
 import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo7
 import com.github.oxarnau.transsectes_app.features.settings.presentation.views.SettingsView
+import com.github.oxarnau.transsectes_app.features.splash.presentation.view.SplashView
 
 expect fun log(tag: String, message: String)
 
@@ -34,8 +35,19 @@ fun NavigationWrapper() {
 
     NavHost(
         navController = navController,
-        startDestination = Route.SignIn
+        startDestination = Route.Splash
     ) {
+        composable<Route.Splash> {
+            log("NavController", "Route.Splash")
+            SplashView {
+                navController.navigate(Route.SignIn) {
+                    popUpTo(Route.SignIn) { inclusive = true }
+                    launchSingleTop = true
+                }
+            }
+        }
+
+
         composable<Route.SignIn> {
             SignInView(navController)
         }
