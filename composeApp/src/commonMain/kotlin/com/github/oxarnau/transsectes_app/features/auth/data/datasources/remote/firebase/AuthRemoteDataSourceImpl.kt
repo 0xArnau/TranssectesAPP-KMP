@@ -59,6 +59,15 @@ class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
         }
     }
 
+    override suspend fun isUserAutehnticated(): Result<Boolean, DataError.Remote> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun isEmailVerified(): Result<Boolean, DataError.Remote> {
+        TODO("Not yet implemented")
+    }
+
+
     /**
      * Maps Firebase exceptions to custom [DataError.Remote].
      *

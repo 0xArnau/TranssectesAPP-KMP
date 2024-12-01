@@ -50,9 +50,16 @@ interface AuthRepository {
     /**
      * Check if user is authenticated and email is verified
      *
-     * @return [Result] containing true if user is authenticated and has
-     * verified the email, false if user is not authenticated is has not
-     * verified the email and [DataError.Remote] on failure
+     * @return [Result] containing true if user has verified the email, false if is not
+     * and [DataError.Remote] on failure
      */
     suspend fun isEmailVerified(): Result<Boolean, DataError.Remote>
+
+    /**
+     * Check if user is authenticated and email is verified
+     *
+     * @return [Result] containing true if user is authenticated,
+     * false if is not and [DataError.Remote] on failure
+     */
+    suspend fun isUserAuthenticated(): Result<Boolean, DataError.Remote>
 }

@@ -35,4 +35,8 @@ class AuthRepositoryImpl(
     override suspend fun isEmailVerified(): Result<Boolean, DataError.Remote> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun isUserAuthenticated(): Result<Boolean, DataError.Remote> {
+        TODO("Not yet implemented")
+    }
 }

@@ -47,4 +47,9 @@ interface AuthRemoteDataSource {
      * @return [Result] containing true if successful or a [DataError.Remote] on failure.
      */
     suspend fun verifyEmail(): Result<Boolean, DataError.Remote>
+
+    suspend fun isUserAutehnticated(): Result<Boolean, DataError.Remote>
+
+    suspend fun isEmailVerified(): Result<Boolean, DataError.Remote>
+
 }
