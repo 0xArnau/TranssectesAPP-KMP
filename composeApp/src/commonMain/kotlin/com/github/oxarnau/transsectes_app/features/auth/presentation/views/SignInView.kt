@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,63 +17,80 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.SignInIntent
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
 import com.github.oxarnau.transsectes_app.shared.components.CustomButton
 import com.github.oxarnau.transsectes_app.shared.components.CustomInput
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ * SignInView Composable that displays the UI for the Sign In screen.
+ * It collects user input, interacts with the ViewModel, and shows error messages.
+ *
+ * @param navController The navigation controller to navigate between screens.
+ * @param viewModel The SignInViewModel that handles the business logic for Sign In.
+ */
 @Composable
 fun SignInView(
     navController: NavController,
     viewModel: SignInViewModel = koinViewModel(),
 ) {
     val navigationFlow = remember { viewModel.navigation }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val state = viewModel.state.value
 
     // Collect the navigation flow and navigate when appropriate
     LaunchedEffect(navigationFlow) {
         navigationFlow.collect { route -> navController.navigate(route) }
     }
 
+    // Show error messages in a Snackbar if there's an error
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.let {
+            snackbarHostState.showSnackbar(it)
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp) // Add padding around the column for spacing
+            .padding(16.dp)
     ) {
         Text(
-            text = "Sign In", // TODO: Add internationalization (i18n)
-            style = MaterialTheme.typography.h5,
-            modifier = Modifier.padding(bottom = 32.dp) // Spacing for the title
+            text = "Sign In",
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.padding(bottom = 32.dp)
         )
 
         // Email input field
         CustomInput(
-            label = "Email", // TODO: Add internationalization (i18n)
-            placeholder = "Enter your email",// TODO: Add internationalization (i18n)
-            inputType = "email", // Specify the input type as email
-            modifier = Modifier.fillMaxWidth(), // Make it take up the full width
-            onValueChange = { email -> viewModel.onEmailChange(email) } // Handle email input changes in the ViewModel
+            label = "Email",
+            placeholder = "Enter your email",
+            inputType = "email",
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = { email -> viewModel.onIntent(SignInIntent.onEmailChange(email)) }
         )
 
         // Password input field
         CustomInput(
-            label = "Password",// TODO: Add internationalization (i18n)
-            placeholder = "Enter your password", // TODO: Add internationalization (i18n)
-            inputType = "password", // Specify the input type as password
+            label = "Password",
+            placeholder = "Enter your password",
+            inputType = "password",
             modifier = Modifier.fillMaxWidth()
-                .padding(top = 16.dp), // Add spacing between email and password fields
-            onValueChange = { password -> viewModel.onPasswordChange(password) } // Handle password input changes in the ViewModel
+                .padding(top = 16.dp),
+            onValueChange = { password -> viewModel.onIntent(SignInIntent.onPasswordChange(password)) }
         )
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 32.dp) // Add spacing above the buttons
+                .padding(top = 32.dp)
         ) {
             // Back Button
             CustomButton(
                 text = "Back", // TODO: Add internationalization (i18n)
-                goto = { navController.popBackStack() } // Navigate to previous screen when clicked
+                goto = { navController.popBackStack() }
             )
 
             // Spacer between buttons
@@ -81,7 +99,7 @@ fun SignInView(
             // Next Button (Submit form and navigate)
             CustomButton(
                 text = "Next", // TODO: Add internationalization (i18n)
-                goto = { viewModel.submitSignIn() } // Submit the sign-in form and handle navigation
+                goto = { viewModel.onIntent(SignInIntent.onNextClick) }
             )
         }
     }
