@@ -8,8 +8,8 @@ import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
 import com.github.oxarnau.transsectes_app.core.domain.usecases.SignInUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
-import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.SignInIntent
-import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.SignInState
+import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.SignInState
+import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.SignInIntent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow

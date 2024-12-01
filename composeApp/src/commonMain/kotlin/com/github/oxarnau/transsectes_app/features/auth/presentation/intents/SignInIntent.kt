@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.features.auth.presentation.actions
+package com.github.oxarnau.transsectes_app.features.auth.presentation.intents
 
 sealed interface SignInIntent {
 
