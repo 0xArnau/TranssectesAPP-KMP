@@ -60,11 +60,21 @@ class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
     }
 
     override suspend fun isUserAutehnticated(): Result<Boolean, DataError.Remote> {
-        TODO("Not yet implemented")
+        return try {
+            val isAuthenticated = auth.currentUser != null
+            Result.Success(isAuthenticated)
+        } catch (e: Exception) {
+            mapFirebaseException(e)
+        }
     }
 
     override suspend fun isEmailVerified(): Result<Boolean, DataError.Remote> {
-        TODO("Not yet implemented")
+        return try {
+            val isVerified = auth.currentUser?.isEmailVerified ?: false
+            Result.Success(isVerified)
+        } catch (e: Exception) {
+            mapFirebaseException(e)
+        }
     }
 
 
