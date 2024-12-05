@@ -26,7 +26,7 @@ class AuthViewModel(
     private val authRepository: AuthRepository,
 ) : ViewModel() {
 
-    private val _navigation = MutableSharedFlow<Route>(replay = 0)
+    private val _navigation = MutableSharedFlow<Route>(replay = 1)
     val navigation: SharedFlow<Route> = _navigation
 
     private val _state = MutableStateFlow(AuthState())
