@@ -28,6 +28,7 @@ class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
                 return Result.Error(DataError.User.EMAIL_NOT_FOUND)
             }
 
+            // TODO: remove
             println("id=${user.uid}, email=${user.email!!}, isEmailVerified=${user.isEmailVerified}")
 
             return Result.Success(
