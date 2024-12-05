@@ -3,6 +3,7 @@ package com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
+import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
 import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
@@ -18,11 +19,24 @@ class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
     override suspend fun signIn(
         email: String,
         password: String,
-    ): Result<User, DataError.Remote> {
+    ): Result<UserModel, DataError> {
         return try {
             val user = auth.signInWithEmailAndPassword(email, password).user
+                ?: return Result.Error(DataError.User.USER_NOT_FOUND)
 
-            TODO()
+            if (user.email == null) {
+                return Result.Error(DataError.User.EMAIL_NOT_FOUND)
+            }
+
+            println("id=${user.uid}, email=${user.email!!}, isEmailVerified=${user.isEmailVerified}")
+
+            return Result.Success(
+                UserModel(
+                    id = user.uid,
+                    email = user.email!!,
+                    isEmailVerified = user.isEmailVerified
+                )
+            )
         } catch (e: Exception) {
             mapFirebaseException(e)
         }

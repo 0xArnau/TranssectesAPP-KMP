@@ -2,8 +2,10 @@ package com.github.oxarnau.transsectes_app.features.auth.data.repositoiries
 
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
+import com.github.oxarnau.transsectes_app.core.domain.map
 import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
+import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
 import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
 
 class AuthRepositoryImpl(
@@ -13,8 +15,10 @@ class AuthRepositoryImpl(
     override suspend fun signIn(
         email: String,
         password: String,
-    ): Result<User, DataError.Remote> {
-        return authRemoteDataSource.signIn(email, password)
+    ): Result<User, DataError> {
+        return authRemoteDataSource.signIn(email, password).map {
+            UserMapper().toEntity(it)
+        }
     }
 
     override suspend fun signUp(

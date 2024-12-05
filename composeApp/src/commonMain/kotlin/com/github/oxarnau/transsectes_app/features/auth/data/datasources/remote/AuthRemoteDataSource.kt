@@ -2,6 +2,7 @@ package com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote
 
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
+import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
 import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
 
 
@@ -20,7 +21,7 @@ interface AuthRemoteDataSource {
     suspend fun signIn(
         email: String,
         password: String,
-    ): Result<User, DataError.Remote>
+    ): Result<UserModel, DataError>
 
     /**
      * Registers a new user with email, password, and name.

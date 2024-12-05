@@ -88,7 +88,10 @@ class SignInViewModel(
         }
 
         val result =
-            SignInUseCase(authRepository).invoke(_state.value.email!!, _state.value.password!!)
+            SignInUseCase(authRepository).invoke(
+                _state.value.email!!,
+                _state.value.password!!
+            )
 
         when (result) {
             is Result.Success -> {
@@ -96,7 +99,7 @@ class SignInViewModel(
             }
 
             is Result.Error -> {
-                _state.update { it.copy(errorMessage = result.error.name) }
+                _state.update { it.copy(errorMessage = result.error.toString()) }
             }
         }
     }

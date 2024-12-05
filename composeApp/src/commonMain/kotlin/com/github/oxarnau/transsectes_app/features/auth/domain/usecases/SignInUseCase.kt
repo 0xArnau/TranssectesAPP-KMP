@@ -22,7 +22,7 @@ class SignInUseCase(private val authRepository: AuthRepository) {
     suspend operator fun invoke(
         email: String,
         password: String,
-    ): Result<User, DataError.Remote> {
+    ): Result<User, DataError> {
         return authRepository.signIn(email, password)
     }
 }

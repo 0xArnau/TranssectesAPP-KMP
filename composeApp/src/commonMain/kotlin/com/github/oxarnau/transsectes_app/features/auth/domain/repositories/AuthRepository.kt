@@ -19,7 +19,7 @@ interface AuthRepository {
     suspend fun signIn(
         email: String,
         password: String,
-    ): Result<User, DataError.Remote>
+    ): Result<User, DataError>
 
     /**
      * Registers a new user with email, password, and name.
