@@ -19,7 +19,7 @@ class UserLocalDataSourceImpl : UserLocalDataSource {
      *
      * @param user The user object to be saved in memory.
      */
-    override fun saveUser(user: User) {
+    override fun saveUser(user: User?) {
         currentUser = user
     }
 

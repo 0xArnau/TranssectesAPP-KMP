@@ -9,9 +9,11 @@ import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.
 import com.github.oxarnau.transsectes_app.features.auth.data.repositoiries.AuthRepositoryImpl
 import com.github.oxarnau.transsectes_app.features.auth.data.repositories.UserRepositoryImpl
 import com.github.oxarnau.transsectes_app.features.auth.domain.repositories.UserRepository
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserInfoUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
 import org.koin.core.module.dsl.viewModelOf
@@ -29,6 +31,8 @@ val sharedModule = module {
 
     // Use Cases
     single { GetUserUseCase(userRepository = get()) }
+    single { GetUserInfoUseCase(repository = get()) }
+    single { SaveUserUseCase(userRepository = get()) }
     single { IsEmailVerifiedUseCase(authRepository = get()) }
     single { IsUserAuthenticatedUseCase(authRepository = get()) }
     single { SignInUseCase(authRepository = get()) }

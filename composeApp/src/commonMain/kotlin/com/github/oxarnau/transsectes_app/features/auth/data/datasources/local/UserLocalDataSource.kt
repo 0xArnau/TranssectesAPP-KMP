@@ -14,7 +14,7 @@ interface UserLocalDataSource {
      *
      * @param user The user object to be saved locally.
      */
-    fun saveUser(user: User)
+    fun saveUser(user: User?)
 
     /**
      * Retrieves the stored user from the local data source.

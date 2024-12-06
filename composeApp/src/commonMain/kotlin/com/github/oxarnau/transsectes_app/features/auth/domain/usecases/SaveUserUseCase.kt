@@ -17,7 +17,9 @@ class SaveUserUseCase(private val userRepository: UserRepository) {
      *
      * @param user The user object to be saved.
      */
-    suspend operator fun invoke(user: User) {
+    suspend operator fun invoke(user: User?) {
+        // TODO: remove
+        println("user: ${user?.email}")
         userRepository.saveUser(user)
     }
 }

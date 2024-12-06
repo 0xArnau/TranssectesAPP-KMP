@@ -3,10 +3,12 @@ package com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
+import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
 import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
 import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
+import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.auth.auth
 
 /**
@@ -87,6 +89,15 @@ class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
         return try {
             val isVerified = auth.currentUser?.isEmailVerified ?: false
             Result.Success(isVerified)
+        } catch (e: Exception) {
+            mapFirebaseException(e)
+        }
+    }
+
+    override suspend fun getUserInfo(): Result<User?, DataError> {
+        return try {
+            val user: FirebaseUser? = auth.currentUser
+            Result.Success(UserMapper().toEntity(user))
         } catch (e: Exception) {
             mapFirebaseException(e)
         }

@@ -18,7 +18,7 @@ class UserRepositoryImpl(
      *
      * @param user The user object to be saved.
      */
-    override suspend fun saveUser(user: User) {
+    override suspend fun saveUser(user: User?) {
         userLocalDataSource.saveUser(user)
     }
 

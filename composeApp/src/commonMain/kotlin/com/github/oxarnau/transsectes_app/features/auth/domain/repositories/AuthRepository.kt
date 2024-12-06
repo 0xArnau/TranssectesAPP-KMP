@@ -62,4 +62,12 @@ interface AuthRepository {
      * false if is not and [DataError.Remote] on failure
      */
     suspend fun isUserAuthenticated(): Result<Boolean, DataError.Remote>
+
+    /**
+     * Retrieves information about the currently authenticated user.
+     *
+     * @return A [Result] containing a [User] object if a user is authenticated,
+     * `null` if no user is authenticated, or a [DataError] on failure.
+     */
+    suspend fun getUserInfo(): Result<User?, DataError>
 }

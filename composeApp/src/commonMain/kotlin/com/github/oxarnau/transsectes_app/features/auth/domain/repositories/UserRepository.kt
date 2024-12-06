@@ -15,7 +15,7 @@ interface UserRepository {
      *
      * @param user The user object to be saved.
      */
-    suspend fun saveUser(user: User)
+    suspend fun saveUser(user: User?)
 
     /**
      * Retrieves the stored user data.

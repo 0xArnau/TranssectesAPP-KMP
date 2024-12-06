@@ -3,9 +3,13 @@ package com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
+import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserInfoUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.AuthState
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.AuthIntent
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -24,7 +28,9 @@ import kotlinx.coroutines.launch
  */
 class AuthViewModel(
     private val isEmailVerifiedUseCase: IsEmailVerifiedUseCase,
-    private val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase
+    private val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase,
+    private val saveUserUseCase: SaveUserUseCase,
+    private val getUserInfoUseCase: GetUserInfoUseCase,
 ) : ViewModel() {
 
     // Navigation flow for directing the user to different routes.
@@ -74,6 +80,8 @@ class AuthViewModel(
                     isUserEmailVerified = isEmailVerified
                 )
             }
+
+            saveUser()
 
             navigateBasedOnState(isAuthenticated, isEmailVerified)
         }
@@ -125,4 +133,32 @@ class AuthViewModel(
             _navigation.emit(route)
         }
     }
+
+    /**
+     * Saves the current user's information to local storage.
+     *
+     * This function uses a coroutine to execute the operation on a background thread.
+     * It retrieves the current user's information using [GetUserInfoUseCase] and then
+     * invokes [SaveUserUseCase] to store the data locally. If the retrieval fails, it
+     * saves `null` to clear any existing user data.
+     */
+    private fun saveUser() {
+        viewModelScope.launch {
+            // Retrieve the user information using the GetUserInfoUseCase
+            val response: Result<User?, DataError> = getUserInfoUseCase.invoke()
+
+            // Handle the result of the retrieval
+            when (response) {
+                is Result.Success -> {
+                    // Save the retrieved user information locally
+                    saveUserUseCase.invoke(response.data)
+                }
+
+                else -> {
+                    saveUserUseCase.invoke(null)
+                }
+            }
+        }
+    }
+
 }

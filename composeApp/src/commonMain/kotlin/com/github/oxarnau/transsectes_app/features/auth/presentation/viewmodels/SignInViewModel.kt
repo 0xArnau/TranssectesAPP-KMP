@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.core.domain.usecases.SignInUseCase
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.SignInState
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.SignInIntent
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,7 +23,8 @@ import kotlinx.coroutines.launch
  * @param signInUseCase Use case for performing the sign-in operation.
  */
 class SignInViewModel(
-    private val signInUseCase: SignInUseCase
+    private val signInUseCase: SignInUseCase,
+    private val saveUserUseCase: SaveUserUseCase,
 ) : ViewModel() {
 
     // Navigation flow for directing the user to different routes.
@@ -105,8 +107,20 @@ class SignInViewModel(
 
         // Update the state or navigate based on the result
         when (result) {
-            is Result.Success -> navigate(Route.Home)
-            is Result.Error -> _state.update { it.copy(errorMessage = result.error.toString()) }
+            is Result.Success -> {
+                saveUserUseCase(result.data)
+                navigate(Route.Home)
+            }
+
+            is Result.Error -> {
+                saveUserUseCase(null)
+                _state.update {
+                    it.copy(
+                        errorMessage = result
+                            .error.toString()
+                    )
+                }
+            }
         }
     }
 

@@ -65,4 +65,12 @@ interface AuthRemoteDataSource {
      */
     suspend fun isEmailVerified(): Result<Boolean, DataError.Remote>
 
+    /**
+     * Retrieves information about the currently authenticated user.
+     *
+     * @return A [Result] containing a [User] object if available, or null if no user is authenticated,
+     * or a [DataError] on failure.
+     */
+    suspend fun getUserInfo(): Result<User?, DataError>
+
 }
