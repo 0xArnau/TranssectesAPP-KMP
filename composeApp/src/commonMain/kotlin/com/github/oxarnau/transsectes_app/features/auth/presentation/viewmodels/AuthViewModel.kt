@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.core.domain.Result
-import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.AuthState
@@ -20,15 +19,19 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel for managing the authentication process and navigation between related screens.
  *
- * @property authRepository Repository for authentication-related operations.
+ * @property isEmailVerifiedUseCase Use case for checking if the user's email is verified.
+ * @property isUserAuthenticatedUseCase Use case for checking if the user is authenticated.
  */
 class AuthViewModel(
-    private val authRepository: AuthRepository,
+    private val isEmailVerifiedUseCase: IsEmailVerifiedUseCase,
+    private val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase
 ) : ViewModel() {
 
+    // Navigation flow for directing the user to different routes.
     private val _navigation = MutableSharedFlow<Route>(replay = 1)
     val navigation: SharedFlow<Route> = _navigation
 
+    // State flow for representing the current state of the authentication screen.
     private val _state = MutableStateFlow(AuthState())
     val state = _state
         .stateIn(
@@ -42,28 +45,19 @@ class AuthViewModel(
     }
 
     /**
-     * Handles user intents for the authentication screen.
+     * Processes user intents for the authentication screen.
      *
-     * @param intent The user intent to be processed.
+     * @param intent The user intent to be handled.
      */
     fun onIntent(intent: AuthIntent) {
         when (intent) {
-            is AuthIntent.onSignInClick -> {
-                viewModelScope.launch {
-                    _navigation.emit(Route.SignIn)
-                }
-            }
-
-            is AuthIntent.onSignUpClick -> {
-                viewModelScope.launch {
-                    _navigation.emit(Route.SignUp)
-                }
-            }
+            is AuthIntent.onSignInClick -> navigate(Route.SignIn)
+            is AuthIntent.onSignUpClick -> navigate(Route.SignUp)
         }
     }
 
     /**
-     * Initializes the authentication state by checking user authentication and email verification status.
+     * Initializes the authentication state by verifying authentication and email status.
      */
     private fun initializeAuthState() {
         viewModelScope.launch {
@@ -86,7 +80,7 @@ class AuthViewModel(
     }
 
     /**
-     * Navigates to the appropriate route based on the user's authentication state.
+     * Navigates to a specific route based on the current authentication state.
      *
      * @param isAuthenticated Whether the user is authenticated.
      * @param isEmailVerified Whether the user's email is verified.
@@ -96,20 +90,39 @@ class AuthViewModel(
         isEmailVerified: Boolean
     ) {
         when {
-            isAuthenticated && isEmailVerified -> _navigation.emit(Route.Home)
-            isAuthenticated && !isEmailVerified -> _navigation.emit(Route.VerifyEmail)
+            isAuthenticated && isEmailVerified -> navigate(Route.Home)
+            isAuthenticated && !isEmailVerified -> navigate(Route.VerifyEmail)
         }
     }
 
+    /**
+     * Checks if the user's email is verified by invoking the use case.
+     *
+     * @return True if the email is verified, otherwise false.
+     */
     private suspend fun checkEmailVerification(): Boolean {
-        val result = IsEmailVerifiedUseCase(authRepository).invoke()
-
+        val result = isEmailVerifiedUseCase()
         return result is Result.Success && result.data
     }
 
+    /**
+     * Checks if the user is authenticated by invoking the use case.
+     *
+     * @return True if the user is authenticated, otherwise false.
+     */
     private suspend fun checkUserAuthentication(): Boolean {
-        val result = IsUserAuthenticatedUseCase(authRepository).invoke()
-
+        val result = isUserAuthenticatedUseCase()
         return result is Result.Success && result.data
+    }
+
+    /**
+     * Emits a navigation event to the specified route.
+     *
+     * @param route The route to navigate to.
+     */
+    private fun navigate(route: Route) {
+        viewModelScope.launch {
+            _navigation.emit(route)
+        }
     }
 }
