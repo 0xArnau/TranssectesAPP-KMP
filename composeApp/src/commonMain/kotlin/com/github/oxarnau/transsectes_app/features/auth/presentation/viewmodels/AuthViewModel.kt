@@ -9,8 +9,8 @@ import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserI
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTechnicianUseCase
-import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.AuthState
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.AuthIntent
+import com.github.oxarnau.transsectes_app.features.auth.presentation.states.AuthState
 import com.github.oxarnau.transsectes_app.shared.domain.entity.User
 import com.github.oxarnau.transsectes_app.shared.domain.usecases.SaveUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow

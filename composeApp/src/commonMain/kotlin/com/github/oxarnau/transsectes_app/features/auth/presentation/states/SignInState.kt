@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.features.auth.presentation.actions
+package com.github.oxarnau.transsectes_app.features.auth.presentation.states
 
 /**
  * State class that holds the current state for the Sign In feature.

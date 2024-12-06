@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.features.auth.presentation.actions
+package com.github.oxarnau.transsectes_app.features.auth.presentation.states
 
 /**
  * Represents the state of the authentication screen.
