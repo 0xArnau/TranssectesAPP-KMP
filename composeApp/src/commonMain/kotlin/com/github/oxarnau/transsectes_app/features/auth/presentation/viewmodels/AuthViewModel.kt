@@ -9,6 +9,7 @@ import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserInfoUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTechnicianUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.AuthState
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.AuthIntent
@@ -31,6 +32,7 @@ class AuthViewModel(
     private val isUserAuthenticatedUseCase: IsUserAuthenticatedUseCase,
     private val saveUserUseCase: SaveUserUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val isUserTechnicianUseCase: IsUserTechnicianUseCase,
 ) : ViewModel() {
 
     // Navigation flow for directing the user to different routes.
@@ -147,17 +149,36 @@ class AuthViewModel(
             // Retrieve the user information using the GetUserInfoUseCase
             val response: Result<User?, DataError> = getUserInfoUseCase.invoke()
 
+            val isTechnician = isTechnician()
+
             // Handle the result of the retrieval
             when (response) {
                 is Result.Success -> {
                     // Save the retrieved user information locally
-                    saveUserUseCase.invoke(response.data)
+                    response.data?.let { user ->
+                        val updatedUser = user.copy(isTechnician = isTechnician)
+                        saveUserUseCase.invoke(updatedUser)
+                    } ?: saveUserUseCase.invoke(null)
                 }
 
                 else -> {
                     saveUserUseCase.invoke(null)
                 }
             }
+        }
+    }
+
+    /**
+     * Determines if the current user is a technician.
+     *
+     * This function calls the [isUserTechnicianUseCase] use case and processes the result.
+     *
+     * @return `true` if the user is a technician, `false` otherwise.
+     */
+    private suspend fun isTechnician(): Boolean {
+        return when (val response = isUserTechnicianUseCase()) {
+            is Result.Success -> response.data
+            else -> false
         }
     }
 
