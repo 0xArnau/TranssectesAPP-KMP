@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.AuthIntent
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.shared.components.CustomButton
@@ -51,7 +52,9 @@ fun AuthView(
     // Observe navigation flow
     LaunchedEffect(viewModel.navigation) {
         viewModel.navigation.collect { route ->
-            navController.navigate(route)
+            navController.navigate(route) {
+                popUpTo(Route.Auth) { inclusive = true }
+            }
         }
     }
 

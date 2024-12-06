@@ -42,8 +42,7 @@ fun NavigationWrapper() {
             log("NavController", "Route.Splash")
             SplashView {
                 navController.navigate(Route.Auth) {
-                    popUpTo(Route.Auth) { inclusive = true }
-                    launchSingleTop = true
+                    popUpTo(Route.Splash) { inclusive = true }
                 }
             }
         }
