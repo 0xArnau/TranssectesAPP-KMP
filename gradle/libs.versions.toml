@@ -25,6 +25,7 @@ googleServices = "4.4.2"
 materialIconsExtended = "1.7.0"
 
 [libraries]
+firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebaseAuth" }
 gitlive-firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebaseAuth" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }

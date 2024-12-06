@@ -10,6 +10,7 @@ import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseUser
 import dev.gitlive.firebase.auth.auth
+import dev.gitlive.firebase.firestore.firestore
 
 /**
  * Remote data source for authentication operations using Firebase.
@@ -98,6 +99,29 @@ class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
         return try {
             val user: FirebaseUser? = auth.currentUser
             Result.Success(UserMapper().toEntity(user))
+        } catch (e: Exception) {
+            mapFirebaseException(e)
+        }
+    }
+
+    override suspend fun isTechnician(): Result<Boolean, DataError> {
+        return try {
+            // Obtener el email
+            val email = auth.currentUser?.email
+
+            // Mirar si el email es null
+            if (email.isNullOrEmpty()) return Result.Error(DataError.User.EMAIL_NOT_FOUND)
+
+            // Consultar la colección "tecnics" en Firestore con el email como el ID del documento
+            val documentSnapshot = Firebase.firestore
+                .collection("tecnics")
+                .document(email)
+                .get()
+
+            // Verificar si el documento existe
+            val isTechnician = documentSnapshot.exists
+
+            Result.Success(isTechnician)
         } catch (e: Exception) {
             mapFirebaseException(e)
         }

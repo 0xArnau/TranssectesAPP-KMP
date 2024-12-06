@@ -73,4 +73,16 @@ interface AuthRemoteDataSource {
      */
     suspend fun getUserInfo(): Result<User?, DataError>
 
+    /**
+     * Checks if the current user is a technician.
+     *
+     * This function makes a call to the repository to check the user's status.
+     * It returns a [Result] that indicates whether the user is a technician or not.
+     * In case of a failure, a [DataError.Remote] is returned.
+     *
+     * @return [Result] containing `true` if the user is a technician, `false` if not,
+     *         or a [DataError.Remote] in case of an error.
+     */
+    suspend fun isTechnician(): Result<Boolean, DataError>
+
 }

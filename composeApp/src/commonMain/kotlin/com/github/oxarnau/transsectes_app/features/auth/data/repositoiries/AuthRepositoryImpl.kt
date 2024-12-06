@@ -47,4 +47,10 @@ class AuthRepositoryImpl(
     override suspend fun getUserInfo(): Result<User?, DataError> {
         return authRemoteDataSource.getUserInfo()
     }
+
+    override suspend fun isTechnician(): Result<Boolean, DataError> {
+        return authRemoteDataSource.isTechnician()
+    }
+
+
 }

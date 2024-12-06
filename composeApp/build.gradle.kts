@@ -66,6 +66,7 @@ kotlin {
             implementation(libs.bundles.coil)
 
             implementation(libs.gitlive.firebase.auth)
+            implementation(libs.firebase.firestore)
 
             implementation(libs.material.icons.extended)
         }
