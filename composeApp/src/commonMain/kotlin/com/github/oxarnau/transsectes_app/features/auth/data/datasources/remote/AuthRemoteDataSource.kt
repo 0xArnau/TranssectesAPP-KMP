@@ -3,7 +3,7 @@ package com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
-import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
+import com.github.oxarnau.transsectes_app.shared.domain.entity.User
 
 
 /**

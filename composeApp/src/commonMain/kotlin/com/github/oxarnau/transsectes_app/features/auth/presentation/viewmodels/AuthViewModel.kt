@@ -5,14 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
-import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserInfoUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTechnicianUseCase
-import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.AuthState
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.AuthIntent
+import com.github.oxarnau.transsectes_app.shared.domain.entity.User
+import com.github.oxarnau.transsectes_app.shared.domain.usecases.SaveUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow

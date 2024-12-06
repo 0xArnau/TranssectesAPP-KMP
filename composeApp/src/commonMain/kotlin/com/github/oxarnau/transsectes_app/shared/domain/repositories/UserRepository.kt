@@ -1,6 +1,6 @@
-package com.github.oxarnau.transsectes_app.features.auth.domain.repositories
+package com.github.oxarnau.transsectes_app.shared.domain.repositories
 
-import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
+import com.github.oxarnau.transsectes_app.shared.domain.entity.User
 
 /**
  * Interface for managing user data.

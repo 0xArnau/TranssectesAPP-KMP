@@ -6,7 +6,7 @@ import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.core.domain.usecases.SignInUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTechnicianUseCase
-import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SaveUserUseCase
+import com.github.oxarnau.transsectes_app.shared.domain.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.actions.SignInState
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.SignInIntent
 import kotlinx.coroutines.flow.MutableSharedFlow

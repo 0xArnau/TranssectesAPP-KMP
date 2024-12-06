@@ -5,7 +5,7 @@ import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
 import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
 import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
-import com.github.oxarnau.transsectes_app.features.auth.domain.entity.User
+import com.github.oxarnau.transsectes_app.shared.domain.entity.User
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseUser
