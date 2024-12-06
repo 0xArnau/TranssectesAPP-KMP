@@ -3,6 +3,8 @@ package com.github.oxarnau.transsectes_app.features.settings.presentation.viewmo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.core.domain.Result
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SignOutUseCase
 import com.github.oxarnau.transsectes_app.features.settings.presentation.intents.SettingsIntent
 import com.github.oxarnau.transsectes_app.features.settings.presentation.states.SettingsState
 import com.github.oxarnau.transsectes_app.features.user.usecases.GetUserUseCase
@@ -15,7 +17,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val signOutUseCase: SignOutUseCase,
 ) : ViewModel() {
 
     // Navigation flow for directing the user to different routes
@@ -42,7 +45,17 @@ class SettingsViewModel(
     fun onIntent(intent: SettingsIntent) {
         when (intent) {
             is SettingsIntent.GoBackClick -> navigate(Route.Home)
-            is SettingsIntent.SignOutClick -> TODO()
+            is SettingsIntent.SignOutClick -> {
+                viewModelScope.launch {
+                    val response = signOutUseCase()
+
+                    when (response) {
+                        is Result.Success -> navigate(Route.Auth)
+                        else -> setErrorMessage("Cannot sign out") // TODO
+                    }
+                }
+            }
+
             is SettingsIntent.DeleteAccountClick -> TODO()
         }
     }

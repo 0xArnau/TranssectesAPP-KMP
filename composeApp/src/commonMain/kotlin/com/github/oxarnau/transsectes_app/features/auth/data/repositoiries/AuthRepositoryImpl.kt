@@ -28,8 +28,8 @@ class AuthRepositoryImpl(
         return authRemoteDataSource.signUp(email, password)
     }
 
-    override suspend fun signOut(): Result<Unit, DataError.Local> {
-        TODO("Not yet implemented")
+    override suspend fun signOut(): Result<Unit, DataError.Remote> {
+        return authRemoteDataSource.signOut()
     }
 
     override suspend fun verifyEmail(): Result<Boolean, DataError.Remote> {

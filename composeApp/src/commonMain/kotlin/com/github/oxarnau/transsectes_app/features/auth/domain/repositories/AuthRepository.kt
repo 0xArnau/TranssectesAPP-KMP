@@ -38,7 +38,7 @@ interface AuthRepository {
      *
      * @return [Result] containing success or a [DataError.Local] on failure.
      */
-    suspend fun signOut(): Result<Unit, DataError.Local>
+    suspend fun signOut(): Result<Unit, DataError.Remote>
 
     /**
      * Sends an email verification to the current user.

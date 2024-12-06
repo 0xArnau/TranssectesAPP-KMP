@@ -9,6 +9,7 @@ import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserI
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTechnicianUseCase
+import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SignOutUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
 import com.github.oxarnau.transsectes_app.features.settings.presentation.viewmodels.SettingsViewModel
@@ -41,6 +42,7 @@ val sharedModule = module {
     singleOf(::IsUserAuthenticatedUseCase)
     singleOf(::SignInUseCase)
     singleOf(::IsUserTechnicianUseCase)
+    singleOf(::SignOutUseCase)
 
     // View Models
     viewModelOf(::AuthViewModel)

@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.SignInIntent
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
 import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomButton
@@ -41,7 +42,11 @@ fun SignInView(
 
     // Collect the navigation flow and navigate when appropriate
     LaunchedEffect(navigationFlow) {
-        navigationFlow.collect { route -> navController.navigate(route) }
+        navigationFlow.collect { route ->
+            navController.navigate(route) {
+                popUpTo(Route.SignIn) { inclusive = true }
+            }
+        }
     }
 
     // Show error messages in a Snackbar if there's an error

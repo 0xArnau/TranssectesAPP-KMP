@@ -41,6 +41,7 @@ import androidx.navigation.NavController
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.features.settings.presentation.intents.SettingsIntent
 import com.github.oxarnau.transsectes_app.features.settings.presentation.viewmodels.SettingsViewModel
+import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomButton
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -66,6 +67,15 @@ fun SettingsView(
     LaunchedEffect(navigationFlow) {
         navigationFlow.collect { route ->
             if (route == Route.Home) navController.popBackStack()
+
+            if (route == Route.Auth) {
+                navController.navigate(Route.Auth) {
+                    popUpTo(0) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            }
         }
     }
 
@@ -128,6 +138,14 @@ fun SettingsView(
 
             item {
                 EmailWithToggleVisibility(email = state.email ?: "")
+            }
+
+            item {
+                CustomButton(
+                    text = "Sign Out", // TODO
+                    goto = { viewModel.onIntent(SettingsIntent.SignOutClick) },
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }
