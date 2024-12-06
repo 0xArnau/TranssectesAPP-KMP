@@ -57,6 +57,10 @@ class SignInViewModel(
         }
     }
 
+    fun clearErrorMessage() {
+        _state.update { it.copy(errorMessage = null) }
+    }
+
     /**
      * Updates the email field in the current state.
      *
