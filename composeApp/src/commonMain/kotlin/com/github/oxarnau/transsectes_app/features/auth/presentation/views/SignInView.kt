@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.SignInIntent
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
-import com.github.oxarnau.transsectes_app.shared.components.CustomButton
-import com.github.oxarnau.transsectes_app.shared.components.CustomInput
+import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomButton
+import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomInput
 import org.koin.compose.viewmodel.koinViewModel
 
 /**
@@ -68,7 +68,13 @@ fun SignInView(
             placeholder = "Enter your email",
             inputType = "email",
             modifier = Modifier.fillMaxWidth(),
-            onValueChange = { email -> viewModel.onIntent(SignInIntent.onEmailChange(email)) }
+            onValueChange = { email ->
+                viewModel.onIntent(
+                    SignInIntent.onEmailChange(
+                        email
+                    )
+                )
+            }
         )
 
         // Password input field
@@ -78,7 +84,13 @@ fun SignInView(
             inputType = "password",
             modifier = Modifier.fillMaxWidth()
                 .padding(top = 16.dp),
-            onValueChange = { password -> viewModel.onIntent(SignInIntent.onPasswordChange(password)) }
+            onValueChange = { password ->
+                viewModel.onIntent(
+                    SignInIntent.onPasswordChange(
+                        password
+                    )
+                )
+            }
         )
 
         Row(

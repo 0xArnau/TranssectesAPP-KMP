@@ -30,7 +30,7 @@ import androidx.navigation.NavController
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.features.auth.presentation.intents.AuthIntent
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
-import com.github.oxarnau.transsectes_app.shared.components.CustomButton
+import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomButton
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import transsectesapp.composeapp.generated.resources.Res

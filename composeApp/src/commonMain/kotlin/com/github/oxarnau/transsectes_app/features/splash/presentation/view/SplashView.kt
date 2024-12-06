@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.oxarnau.transsectes_app.shared.components.WaveShape
+import com.github.oxarnau.transsectes_app.shared.presentation.components.WaveShape
 import org.jetbrains.compose.resources.painterResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.gepec_edc_oficial_blanc

@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.shared.components
+package com.github.oxarnau.transsectes_app.shared.presentation.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
