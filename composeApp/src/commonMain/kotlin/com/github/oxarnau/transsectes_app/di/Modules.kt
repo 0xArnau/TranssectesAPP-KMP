@@ -12,12 +12,12 @@ import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTe
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
 import com.github.oxarnau.transsectes_app.features.settings.presentation.viewmodels.SettingsViewModel
+import com.github.oxarnau.transsectes_app.features.user.repositories.UserRepository
+import com.github.oxarnau.transsectes_app.features.user.usecases.GetUserUseCase
+import com.github.oxarnau.transsectes_app.features.user.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.shared.data.datasources.local.UserLocalDataSource
 import com.github.oxarnau.transsectes_app.shared.data.datasources.local.memory.UserLocalDataSourceImpl
 import com.github.oxarnau.transsectes_app.shared.data.repositories.UserRepositoryImpl
-import com.github.oxarnau.transsectes_app.shared.domain.repositories.UserRepository
-import com.github.oxarnau.transsectes_app.shared.domain.usecases.GetUserUseCase
-import com.github.oxarnau.transsectes_app.shared.domain.usecases.SaveUserUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind

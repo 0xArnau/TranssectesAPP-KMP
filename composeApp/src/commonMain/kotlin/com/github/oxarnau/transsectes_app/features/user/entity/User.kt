@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.shared.domain.entity
+package com.github.oxarnau.transsectes_app.features.user.entity
 
 data class User(
     val id: String,

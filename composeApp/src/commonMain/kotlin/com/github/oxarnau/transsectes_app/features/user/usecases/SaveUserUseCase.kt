@@ -1,7 +1,7 @@
-package com.github.oxarnau.transsectes_app.shared.domain.usecases
+package com.github.oxarnau.transsectes_app.features.user.usecases
 
-import com.github.oxarnau.transsectes_app.shared.domain.entity.User
-import com.github.oxarnau.transsectes_app.shared.domain.repositories.UserRepository
+import com.github.oxarnau.transsectes_app.features.user.entity.User
+import com.github.oxarnau.transsectes_app.features.user.repositories.UserRepository
 
 /**
  * Use case for saving the user data.

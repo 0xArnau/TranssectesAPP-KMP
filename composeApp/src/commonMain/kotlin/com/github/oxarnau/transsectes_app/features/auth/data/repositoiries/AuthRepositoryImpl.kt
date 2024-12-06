@@ -6,7 +6,7 @@ import com.github.oxarnau.transsectes_app.core.domain.map
 import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
 import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
-import com.github.oxarnau.transsectes_app.shared.domain.entity.User
+import com.github.oxarnau.transsectes_app.features.user.entity.User
 
 class AuthRepositoryImpl(
     private val authRemoteDataSource: AuthRemoteDataSource,

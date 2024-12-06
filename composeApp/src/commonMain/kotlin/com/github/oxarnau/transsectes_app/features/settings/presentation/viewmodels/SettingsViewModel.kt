@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.features.settings.presentation.intents.SettingsIntent
 import com.github.oxarnau.transsectes_app.features.settings.presentation.states.SettingsState
-import com.github.oxarnau.transsectes_app.shared.domain.usecases.GetUserUseCase
+import com.github.oxarnau.transsectes_app.features.user.usecases.GetUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow

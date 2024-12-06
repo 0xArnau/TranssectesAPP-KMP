@@ -1,7 +1,7 @@
 package com.github.oxarnau.transsectes_app.shared.data.datasources.local.memory
 
+import com.github.oxarnau.transsectes_app.features.user.entity.User
 import com.github.oxarnau.transsectes_app.shared.data.datasources.local.UserLocalDataSource
-import com.github.oxarnau.transsectes_app.shared.domain.entity.User
 
 /**
  * Implementation of the [UserLocalDataSource] interface that stores user data in memory.
