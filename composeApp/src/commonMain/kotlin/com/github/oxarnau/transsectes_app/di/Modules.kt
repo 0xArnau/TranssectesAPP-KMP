@@ -17,27 +17,29 @@ import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTe
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SaveUserUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val sharedModule = module {
 
     // Data Sources
-    single<AuthRemoteDataSource> { AuthRemoteDataSourceImpl() }
-    single<UserLocalDataSource> { UserLocalDataSourceImpl() }
+    singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()
+    singleOf(::UserLocalDataSourceImpl).bind<UserLocalDataSource>()
 
     // Repositories
-    single<AuthRepository> { AuthRepositoryImpl(authRemoteDataSource = get()) }
-    single<UserRepository> { UserRepositoryImpl(userLocalDataSource = get()) }
+    singleOf(::UserRepositoryImpl).bind<UserRepository>()
+    singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
 
     // Use Cases
-    single { GetUserUseCase(userRepository = get()) }
-    single { GetUserInfoUseCase(repository = get()) }
-    single { SaveUserUseCase(userRepository = get()) }
-    single { IsEmailVerifiedUseCase(authRepository = get()) }
-    single { IsUserAuthenticatedUseCase(authRepository = get()) }
-    single { SignInUseCase(authRepository = get()) }
-    single { IsUserTechnicianUseCase(repository = get()) }
+    singleOf(::GetUserUseCase)
+    singleOf(::GetUserInfoUseCase)
+    singleOf(::SaveUserUseCase)
+    singleOf(::IsEmailVerifiedUseCase)
+    singleOf(::IsUserAuthenticatedUseCase)
+    singleOf(::SignInUseCase)
+    singleOf(::IsUserTechnicianUseCase)
 
     // View Models
     viewModelOf(::AuthViewModel)
