@@ -63,7 +63,7 @@ fun NavigationWrapper() {
         }
 
         composable<Route.Settings> {
-            SettingsView { navController.popBackStack() }
+            SettingsView(navController)
         }
 
         composable<Route.Contact> {

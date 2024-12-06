@@ -11,6 +11,7 @@ import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAu
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserTechnicianUseCase
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
+import com.github.oxarnau.transsectes_app.features.settings.presentation.viewmodels.SettingsViewModel
 import com.github.oxarnau.transsectes_app.shared.data.datasources.local.UserLocalDataSource
 import com.github.oxarnau.transsectes_app.shared.data.datasources.local.memory.UserLocalDataSourceImpl
 import com.github.oxarnau.transsectes_app.shared.data.repositories.UserRepositoryImpl
@@ -44,4 +45,5 @@ val sharedModule = module {
     // View Models
     viewModelOf(::AuthViewModel)
     viewModelOf(::SignInViewModel)
+    viewModelOf(::SettingsViewModel)
 }
