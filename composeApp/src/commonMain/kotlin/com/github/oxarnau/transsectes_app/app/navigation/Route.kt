@@ -54,4 +54,19 @@ sealed interface Route {
 
     @Serializable
     data object HowTo8 : Route
+
+    @Serializable
+    data object AllTransects : Route
+
+    @Serializable
+    data object DonwloadTransects : Route
+
+    @Serializable
+    data object MyTransects : Route
+
+    @Serializable
+    data object RecordsTransects : Route
+
+    @Serializable
+    data object RemoveTransects : Route
 }

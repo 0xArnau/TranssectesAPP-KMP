@@ -17,6 +17,7 @@ import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowT
 import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo7
 import com.github.oxarnau.transsectes_app.features.settings.presentation.views.SettingsView
 import com.github.oxarnau.transsectes_app.features.splash.presentation.view.SplashView
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.RecordsTransectsView
 
 expect fun log(tag: String, message: String)
 
@@ -58,6 +59,7 @@ fun NavigationWrapper() {
         composable<Route.Home> {
             HomeView(
                 navigate2HowTo = { navController.navigate(Route.HowTo1) },
+                navigate2Records = { navController.navigate(Route.RecordsTransects) },
                 navigate2Contact = { navController.navigate(Route.Contact) }
             ) { navController.navigate(Route.Settings) }
         }
@@ -122,6 +124,10 @@ fun NavigationWrapper() {
                     }
                 }
             )
+        }
+
+        composable<Route.RecordsTransects> {
+            RecordsTransectsView(navController)
         }
     }
 }
