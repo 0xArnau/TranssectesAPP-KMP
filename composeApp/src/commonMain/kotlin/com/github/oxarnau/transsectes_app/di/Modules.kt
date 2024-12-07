@@ -13,6 +13,14 @@ import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SignOutU
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.AuthViewModel
 import com.github.oxarnau.transsectes_app.features.auth.presentation.viewmodels.SignInViewModel
 import com.github.oxarnau.transsectes_app.features.settings.presentation.viewmodels.SettingsViewModel
+import com.github.oxarnau.transsectes_app.features.transect.data.datasources.remote.TransectFirebaseDataSourceImpl
+import com.github.oxarnau.transsectes_app.features.transect.data.repositories.TransectRepositoryImpl
+import com.github.oxarnau.transsectes_app.features.transect.domain.datasources.TransectDataSource
+import com.github.oxarnau.transsectes_app.features.transect.domain.repositories.TransectRepository
+import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetAllTransectsUseCase
+import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCreatedByUseCase
+import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.RemoveAllTransectsUseCase
+import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.SaveTransectUseCase
 import com.github.oxarnau.transsectes_app.features.user.repositories.UserRepository
 import com.github.oxarnau.transsectes_app.features.user.usecases.GetUserUseCase
 import com.github.oxarnau.transsectes_app.features.user.usecases.SaveUserUseCase
@@ -29,10 +37,12 @@ val sharedModule = module {
     // Data Sources
     singleOf(::AuthFirebaseDataSourceImpl).bind<AuthDataSource>()
     singleOf(::UserLocalDataSourceImpl).bind<UserLocalDataSource>()
+    singleOf(::TransectFirebaseDataSourceImpl).bind<TransectDataSource>()
 
     // Repositories
     singleOf(::UserRepositoryImpl).bind<UserRepository>()
     singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
+    singleOf(::TransectRepositoryImpl).bind<TransectRepository>()
 
     // Use Cases
     singleOf(::GetUserUseCase)
@@ -43,6 +53,10 @@ val sharedModule = module {
     singleOf(::SignInUseCase)
     singleOf(::IsUserTechnicianUseCase)
     singleOf(::SignOutUseCase)
+    singleOf(::GetAllTransectsUseCase)
+    singleOf(::GetTransectByCreatedByUseCase)
+    singleOf(::SaveTransectUseCase)
+    singleOf(::RemoveAllTransectsUseCase)
 
     // View Models
     viewModelOf(::AuthViewModel)
