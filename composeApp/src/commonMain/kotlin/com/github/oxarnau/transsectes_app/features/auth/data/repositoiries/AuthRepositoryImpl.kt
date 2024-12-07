@@ -4,19 +4,19 @@ import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.core.domain.map
 import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
-import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
 import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
+import com.github.oxarnau.transsectes_app.features.auth.domain.datasources.AuthDataSource
 import com.github.oxarnau.transsectes_app.features.user.entity.User
 
 class AuthRepositoryImpl(
-    private val authRemoteDataSource: AuthRemoteDataSource,
+    private val datasource: AuthDataSource,
 ) : AuthRepository {
 
     override suspend fun signIn(
         email: String,
         password: String,
     ): Result<User, DataError> {
-        return authRemoteDataSource.signIn(email, password).map {
+        return datasource.signIn(email, password).map {
             UserMapper().toEntity(it)
         }
     }
@@ -25,11 +25,11 @@ class AuthRepositoryImpl(
         email: String,
         password: String,
     ): Result<User, DataError.Remote> {
-        return authRemoteDataSource.signUp(email, password)
+        return datasource.signUp(email, password)
     }
 
     override suspend fun signOut(): Result<Unit, DataError.Remote> {
-        return authRemoteDataSource.signOut()
+        return datasource.signOut()
     }
 
     override suspend fun verifyEmail(): Result<Boolean, DataError.Remote> {
@@ -37,19 +37,19 @@ class AuthRepositoryImpl(
     }
 
     override suspend fun isEmailVerified(): Result<Boolean, DataError.Remote> {
-        return authRemoteDataSource.isEmailVerified()
+        return datasource.isEmailVerified()
     }
 
     override suspend fun isUserAuthenticated(): Result<Boolean, DataError.Remote> {
-        return authRemoteDataSource.isUserAutehnticated()
+        return datasource.isUserAutehnticated()
     }
 
     override suspend fun getUserInfo(): Result<User?, DataError> {
-        return authRemoteDataSource.getUserInfo()
+        return datasource.getUserInfo()
     }
 
     override suspend fun isTechnician(): Result<Boolean, DataError> {
-        return authRemoteDataSource.isTechnician()
+        return datasource.isTechnician()
     }
 
 

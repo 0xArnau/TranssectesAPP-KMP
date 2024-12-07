@@ -2,9 +2,9 @@ package com.github.oxarnau.transsectes_app.di
 
 import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
 import com.github.oxarnau.transsectes_app.core.domain.usecases.SignInUseCase
-import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
-import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.firebase.AuthRemoteDataSourceImpl
+import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthFirebaseDataSourceImpl
 import com.github.oxarnau.transsectes_app.features.auth.data.repositoiries.AuthRepositoryImpl
+import com.github.oxarnau.transsectes_app.features.auth.domain.datasources.AuthDataSource
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.GetUserInfoUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsEmailVerifiedUseCase
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.IsUserAuthenticatedUseCase
@@ -27,7 +27,7 @@ import org.koin.dsl.module
 val sharedModule = module {
 
     // Data Sources
-    singleOf(::AuthRemoteDataSourceImpl).bind<AuthRemoteDataSource>()
+    singleOf(::AuthFirebaseDataSourceImpl).bind<AuthDataSource>()
     singleOf(::UserLocalDataSourceImpl).bind<UserLocalDataSource>()
 
     // Repositories

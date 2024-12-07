@@ -1,4 +1,4 @@
-package com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote
+package com.github.oxarnau.transsectes_app.features.auth.domain.datasources
 
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
@@ -9,7 +9,7 @@ import com.github.oxarnau.transsectes_app.features.user.entity.User
 /**
  * Remote data source for authentication operations.
  */
-interface AuthRemoteDataSource {
+interface AuthDataSource {
 
     /**
      * Signs in a user with email and password.

@@ -1,10 +1,10 @@
-package com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.firebase
+package com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote
 
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
-import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthRemoteDataSource
 import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
 import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
+import com.github.oxarnau.transsectes_app.features.auth.domain.datasources.AuthDataSource
 import com.github.oxarnau.transsectes_app.features.user.entity.User
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
@@ -15,7 +15,7 @@ import dev.gitlive.firebase.firestore.firestore
 /**
  * Remote data source for authentication operations using Firebase.
  */
-class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
+class AuthFirebaseDataSourceImpl : AuthDataSource {
 
     private val auth: FirebaseAuth by lazy { Firebase.auth }
 
@@ -48,7 +48,7 @@ class AuthRemoteDataSourceImpl : AuthRemoteDataSource {
 
     override suspend fun signUp(
         email: String,
-        password: String,
+        password: String
     ): Result<User, DataError.Remote> {
         return try {
             val user = auth.createUserWithEmailAndPassword(email, password).user

@@ -6,7 +6,7 @@ import com.github.oxarnau.transsectes_app.features.transect.domain.datasources.T
 import com.github.oxarnau.transsectes_app.features.transect.domain.entities.Transect
 import com.github.oxarnau.transsectes_app.features.transect.domain.repositories.TransectRepository
 
-class TransectRepository(private val dataSource: TransectDataSource) :
+class TransectRepositoryImpl(private val dataSource: TransectDataSource) :
     TransectRepository {
 
     override suspend fun getTransectsByCreatedBy(createdBy: String): Result<List<Transect>, DataError> {
