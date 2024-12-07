@@ -69,6 +69,8 @@ kotlin {
             implementation(libs.firebase.firestore)
 
             implementation(libs.material.icons.extended)
+
+            implementation(libs.kotlinx.datetime)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
