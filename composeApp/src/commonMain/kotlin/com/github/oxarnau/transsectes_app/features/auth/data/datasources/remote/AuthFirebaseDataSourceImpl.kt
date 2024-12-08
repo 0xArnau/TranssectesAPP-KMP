@@ -6,10 +6,9 @@ import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
 import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
 import com.github.oxarnau.transsectes_app.features.auth.domain.datasources.AuthDataSource
 import com.github.oxarnau.transsectes_app.features.user.domain.entity.User
-import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseUser
-import dev.gitlive.firebase.firestore.firestore
+import dev.gitlive.firebase.firestore.FirebaseFirestore
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -19,6 +18,7 @@ import org.koin.core.component.inject
 class AuthFirebaseDataSourceImpl : AuthDataSource, KoinComponent {
 
     private val auth: FirebaseAuth by inject()
+    private val store: FirebaseFirestore by inject()
 
     override suspend fun signIn(
         email: String,
@@ -114,7 +114,7 @@ class AuthFirebaseDataSourceImpl : AuthDataSource, KoinComponent {
             if (email.isNullOrEmpty()) return Result.Error(DataError.User.EMAIL_NOT_FOUND)
 
             // Consultar la colección "tecnics" en Firestore con el email como el ID del documento
-            val documentSnapshot = Firebase.firestore
+            val documentSnapshot = store
                 .collection("tecnics")
                 .document(email)
                 .get()
