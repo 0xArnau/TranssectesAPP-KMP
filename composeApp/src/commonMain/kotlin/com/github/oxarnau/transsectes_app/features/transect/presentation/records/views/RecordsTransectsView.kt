@@ -1,5 +1,6 @@
 package com.github.oxarnau.transsectes_app.features.transect.presentation.records.views
 
+// Necessary imports
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -23,10 +24,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavDestination
@@ -35,131 +34,151 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.navigation.TransectRecordsGraph
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.go_back
 
 /**
- * Data class representing an item in the bottom navigation bar.
+ * Represents an item in the bottom navigation bar.
  *
- * This class holds information about each navigation item:
- * - title: The text displayed for the item.
- * - selectedIcon: The icon when the item is selected.
- * - unselectedIcon: The icon when the item is not selected.
- * - route: The route associated with this navigation item.
+ * @property title The label for the navigation item.
+ * @property selectedIcon The icon displayed when the item is selected.
+ * @property unselectedIcon The icon displayed when the item is not selected.
+ * @property route The navigation route associated with this item.
+ * @property intent The intent associated with the item's action.
  */
 data class BottomItem(
     val title: String,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     val route: Route,
+    val intent: RecordsIntent,
 )
 
 /**
- * Composable function for rendering the records view with a top app bar
- * and a bottom navigation bar. It handles navigation and displaying different views.
+ * Renders the records view with a top app bar and a bottom navigation bar.
+ * Handles navigation and displays different views.
  *
- * @param navController The NavHostController used to handle navigation.
+ * @param navController The main NavHostController for navigation.
+ * @param viewModel The ViewModel for managing the records state.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecordsTransectsView(navController: NavHostController) {
-    // Get the items for the bottom navigation
-    val items = getBottomNavigationItems()
+fun RecordsTransectsView(
+    navController: NavHostController,
+    viewModel: RecordsViewModel = koinViewModel(),
+) {
+    val items = getBottomNavigationItems() // Fetch navigation items
 
-    // State for managing the selected item index
-    var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
-
-    // Top app bar scroll behavior
     val scrollBehavior =
         TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+    val navControllerGraph =
+        rememberNavController() // Navigation controller for the graph
 
-    val navControllerGraph = rememberNavController()
+    // Handle navigation actions from the ViewModel
+    LaunchedEffect(viewModel.navigation) {
+        viewModel.navigation.collect { route ->
+            when (route) {
+                is Route.Home -> navController.popBackStack() // Navigate to home
+                else -> {
+                    val currentRoute =
+                        navControllerGraph.currentBackStackEntry?.destination?.route?.split(
+                            '.'
+                        )?.lastOrNull() ?: ""
+                    if (currentRoute != route.toString()) {
+                        navControllerGraph.popBackStack()
+                        navControllerGraph.navigate(route) {
+                            launchSingleTop =
+                                true // Avoid duplicate destinations
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-
-    // Scaffold for layout
+    // Define the layout using Scaffold
     Scaffold(
-        topBar = {
-            // Render the top app bar with scroll behavior
-            TopAppBar(navController, scrollBehavior)
-        },
+        topBar = { TopAppBar(navController, scrollBehavior) },
         bottomBar = {
-            // Render the bottom navigation bar with the items
             BottomNavigationBar(
-                items,
-                navControllerGraph
+                items = items,
+                navController = navControllerGraph,
+                onClick = { intent -> viewModel.onIntent(intent) }
             )
         }
     ) { innerPadding ->
-        // Render the navigation graph based on the selected route
         TransectRecordsGraph(navControllerGraph, innerPadding)
     }
 }
 
 /**
- * Retrieves the list of bottom navigation items based on the current user's role (e.g., technical).
+ * Retrieves the bottom navigation items based on user roles or preferences.
  *
- * The items will change depending on the role. For example, the "Remove" option is available
- * for users with certain privileges.
- *
- * @return A list of [BottomItem] objects representing the items to be displayed in the bottom navigation bar.
+ * @return A list of [BottomItem] representing the navigation options.
  */
 @Composable
 fun getBottomNavigationItems(): List<BottomItem> {
-    return if (true) {  // Change the condition based on the user's role
-        // Full list of items for users with specific roles
+    return if (true) { // Modify this condition to handle user roles dynamically
         listOf(
             BottomItem(
                 "Mine",
                 Icons.Filled.Person,
                 Icons.Outlined.Person,
-                Route.MyTransects
+                Route.MyTransects,
+                RecordsIntent.onMyTransectsClick
             ),
             BottomItem(
                 "All",
                 Icons.Filled.Person2,
                 Icons.Outlined.Person2,
-                Route.AllTransects
+                Route.AllTransects,
+                RecordsIntent.onAllTransectsClick
             ),
             BottomItem(
                 "Download",
                 Icons.Filled.Download,
                 Icons.Outlined.Download,
-                Route.DonwloadTransects
+                Route.DonwloadTransects,
+                RecordsIntent.onDownloadClick
             ),
             BottomItem(
                 "Remove",
                 Icons.Filled.Remove,
                 Icons.Outlined.Remove,
-                Route.RemoveTransects
-            )
+                Route.RemoveTransects,
+                RecordsIntent.onRemoveClick
+            ),
         )
     } else {
-        // Restricted list of items for users with fewer privileges
         listOf(
             BottomItem(
                 "Mine",
                 Icons.Filled.Person,
                 Icons.Outlined.Person,
-                Route.MyTransects
+                Route.MyTransects,
+                RecordsIntent.onMyTransectsClick
             ),
             BottomItem(
                 "Download",
                 Icons.Filled.Download,
                 Icons.Outlined.Download,
-                Route.DonwloadTransects
-            )
+                Route.DonwloadTransects,
+                RecordsIntent.onDownloadClick
+            ),
         )
     }
 }
 
 /**
- * Composable function for rendering the TopAppBar.
- * The TopAppBar includes the title and a navigation icon for going back.
+ * Renders the top app bar with a title and navigation icon.
  *
- * @param navController The NavHostController used to handle navigation.
- * @param scrollBehavior The scroll behavior for the top app bar.
+ * @param navController The NavHostController to manage navigation.
+ * @param scrollBehavior The behavior for handling scrolling actions.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -167,100 +186,74 @@ fun TopAppBar(
     navController: NavHostController,
     scrollBehavior: TopAppBarScrollBehavior,
 ) {
-    // MediumTopAppBar is a Material Design component that supports scroll behavior
     MediumTopAppBar(
         title = {
             Text(
-                text = "Transects",  // Title of the app bar (TODO: Internationalization)
+                "Transects",
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+                overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = {
-            // Back button icon to navigate up in the stack
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(Res.string.go_back)
                 )
             }
         },
-        scrollBehavior = scrollBehavior  // Apply the scroll behavior to the top app bar
+        scrollBehavior = scrollBehavior
     )
 }
 
 /**
- * Composable function for rendering the bottom navigation bar with items.
- * The navigation bar allows the user to switch between different views.
+ * Renders the bottom navigation bar with multiple navigation items.
  *
- * @param items The list of [BottomItem] to be displayed in the bottom navigation bar.
- * @param navController The NavHostController used to handle navigation.
+ * @param items A list of [BottomItem] representing navigation options.
+ * @param navController The NavHostController to handle navigation actions.
+ * @param onClick A callback triggered when an item is clicked.
  */
 @Composable
 fun BottomNavigationBar(
     items: List<BottomItem>,
-    navController: NavHostController
+    navController: NavHostController,
+    onClick: (RecordsIntent) -> Unit,
 ) {
-    // Get the current navigation destination from the back stack
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    // Render the navigation bar
     NavigationBar {
-        // For each item, render it inside the navigation bar
         items.forEach { item ->
-            // Add each item in a row
-            AddItem(
-                item,
-                currentDestination,
-                navController
-            )
+            AddItem(item, currentDestination, onClick)
         }
     }
 }
 
 /**
- * Composable function to render a single item in the bottom navigation bar.
+ * Renders a single item in the bottom navigation bar.
  *
  * @param item The [BottomItem] to render.
- * @param currentDestionation The current destination in the navigation stack.
- * @param navController The NavHostController used to navigate to the destination.
+ * @param currentDestination The current destination in the navigation stack.
+ * @param onClick A callback triggered when the item is clicked.
  */
 @Composable
 fun RowScope.AddItem(
     item: BottomItem,
-    currentDestionation: NavDestination?,
-    navController: NavHostController,
+    currentDestination: NavDestination?,
+    onClick: (RecordsIntent) -> Unit,
 ) {
-    // Check if the current destination matches the item's route to determine if it's selected
-    val isSelected = currentDestionation?.hierarchy?.any {
-        println(
-            "1 - AddItem(${item.route}) -> isSelected: ${it.route} | ${
-                (it.route?.split('.')?.lastOrNull() ?: "")
-            }"
-        )
+    val isSelected = currentDestination?.hierarchy?.any {
         (it.route?.split('.')?.lastOrNull() ?: "") == item.route.toString()
     } == true
 
-    println("2 - AddItem -> isSelected: $isSelected, currentDestionation: ${currentDestionation.toString()}, navController: $navController")
-
-
-    // Render the navigation bar item
     NavigationBarItem(
-        selected = isSelected,  // Highlight if selected
-        onClick = { navController.navigate(item.route) },  // Navigate when clicked
+        selected = isSelected,
+        onClick = { onClick(item.intent) },
         icon = {
-            // Set the icon based on whether the item is selected
             val icon =
                 if (isSelected) item.selectedIcon else item.unselectedIcon
-            val description =
-                if (isSelected) "${item.title} is selected" else "${item.title} is not selected"
-
-            Icon(
-                imageVector = icon,  // Set the icon based on selection state
-                contentDescription = description,  // Provide a description for accessibility
-            )
+            Icon(icon, contentDescription = "${item.title} navigation item")
         },
-        label = { Text(item.title) },  // Label for the item
+        label = { Text(item.title) }
     )
 }

@@ -21,6 +21,7 @@ import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetA
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCreatedByUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.RemoveAllTransectsUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.SaveTransectUseCase
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import com.github.oxarnau.transsectes_app.features.user.repositories.UserRepository
 import com.github.oxarnau.transsectes_app.features.user.usecases.GetUserUseCase
 import com.github.oxarnau.transsectes_app.features.user.usecases.SaveUserUseCase
@@ -31,6 +32,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
+
 
 val sharedModule = module {
 
@@ -62,4 +64,5 @@ val sharedModule = module {
     viewModelOf(::AuthViewModel)
     viewModelOf(::SignInViewModel)
     viewModelOf(::SettingsViewModel)
+    viewModelOf(::RecordsViewModel)
 }
