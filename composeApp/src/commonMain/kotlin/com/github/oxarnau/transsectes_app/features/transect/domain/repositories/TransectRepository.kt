@@ -18,7 +18,7 @@ interface TransectRepository {
      * @return A Result object containing a list of Transect entities if successful,
      *         or a DataError if something goes wrong.
      */
-    suspend fun getTransectsByCreatedBy(createdBy: String): Result<List<Transect>, DataError>
+    suspend fun getTransectByCurrentUser(): Result<List<Transect>, DataError>
 
     /**
      * Get all transects available in the system.

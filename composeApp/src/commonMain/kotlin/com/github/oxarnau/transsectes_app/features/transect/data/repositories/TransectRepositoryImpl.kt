@@ -9,8 +9,8 @@ import com.github.oxarnau.transsectes_app.features.transect.domain.repositories.
 class TransectRepositoryImpl(private val dataSource: TransectDataSource) :
     TransectRepository {
 
-    override suspend fun getTransectsByCreatedBy(createdBy: String): Result<List<Transect>, DataError> {
-        return dataSource.getTransectByCreatedBy(createdBy)
+    override suspend fun getTransectByCurrentUser(): Result<List<Transect>, DataError> {
+        return dataSource.getTransectByCurrentUser()
     }
 
     override suspend fun getAllTransects(): Result<List<Transect>, DataError> {

@@ -18,7 +18,7 @@ import com.github.oxarnau.transsectes_app.features.transect.data.repositories.Tr
 import com.github.oxarnau.transsectes_app.features.transect.domain.datasources.TransectDataSource
 import com.github.oxarnau.transsectes_app.features.transect.domain.repositories.TransectRepository
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetAllTransectsUseCase
-import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCreatedByUseCase
+import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCurrentUserUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.RemoveAllTransectsUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.SaveTransectUseCase
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
@@ -56,7 +56,7 @@ val sharedModule = module {
     singleOf(::IsUserTechnicianUseCase)
     singleOf(::SignOutUseCase)
     singleOf(::GetAllTransectsUseCase)
-    singleOf(::GetTransectByCreatedByUseCase)
+    singleOf(::GetTransectByCurrentUserUseCase)
     singleOf(::SaveTransectUseCase)
     singleOf(::RemoveAllTransectsUseCase)
 

@@ -19,7 +19,7 @@ interface TransectDataSource {
      * @return A Result object containing a list of Transect entities if successful,
      *         or a DataError if something goes wrong.
      */
-    suspend fun getTransectByCreatedBy(createBy: String): Result<List<Transect>, DataError>
+    suspend fun getTransectByCurrentUser(): Result<List<Transect>, DataError>
 
     /**
      * Get all transects available in the data source (could be a local database or remote server).

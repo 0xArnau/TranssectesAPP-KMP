@@ -13,7 +13,7 @@ import com.github.oxarnau.transsectes_app.features.transect.domain.repositories.
  *
  * @property repository The repository responsible for handling transect-related operations.
  */
-class GetTransectByCreatedByUseCase(private val repository: TransectRepository) {
+class GetTransectByCurrentUserUseCase(private val repository: TransectRepository) {
 
     /**
      * Executes the action to fetch transects created by a specific user.
@@ -21,7 +21,7 @@ class GetTransectByCreatedByUseCase(private val repository: TransectRepository) 
      * @param createdBy The identifier of the user who created the transects.
      * @return A [Result] containing a list of transects or an error if the operation fails.
      */
-    suspend operator fun invoke(createdBy: String): Result<List<Transect>, DataError> {
-        return repository.getTransectsByCreatedBy(createdBy)
+    suspend operator fun invoke(): Result<List<Transect>, DataError> {
+        return repository.getTransectByCurrentUser()
     }
 }

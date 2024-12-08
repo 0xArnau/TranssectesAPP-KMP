@@ -4,9 +4,17 @@ import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.transect.domain.datasources.TransectDataSource
 import com.github.oxarnau.transsectes_app.features.transect.domain.entities.Transect
+import dev.gitlive.firebase.auth.FirebaseAuth
+import dev.gitlive.firebase.firestore.FirebaseFirestore
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class TransectFirebaseDataSourceImpl : TransectDataSource {
-    override suspend fun getTransectByCreatedBy(createBy: String): Result<List<Transect>, DataError> {
+class TransectFirebaseDataSourceImpl : TransectDataSource, KoinComponent {
+
+    private val auth: FirebaseAuth by inject()
+    private val firestore: FirebaseFirestore by inject()
+
+    override suspend fun getTransectByCurrentUser(): Result<List<Transect>, DataError> {
         TODO("Not yet implemented")
     }
 
