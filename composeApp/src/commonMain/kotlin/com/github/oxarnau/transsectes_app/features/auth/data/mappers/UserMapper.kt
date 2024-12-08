@@ -1,7 +1,7 @@
 package com.github.oxarnau.transsectes_app.features.auth.data.mappers
 
 import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
-import com.github.oxarnau.transsectes_app.features.user.entity.User
+import com.github.oxarnau.transsectes_app.features.user.domain.entity.User
 import dev.gitlive.firebase.auth.FirebaseUser
 
 /**

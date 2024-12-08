@@ -1,6 +1,6 @@
-package com.github.oxarnau.transsectes_app.features.user.usecases
+package com.github.oxarnau.transsectes_app.features.user.domain.usecases
 
-import com.github.oxarnau.transsectes_app.features.user.repositories.UserRepository
+import com.github.oxarnau.transsectes_app.features.user.domain.repositories.UserRepository
 
 /**
  * Use case for clearing the user data.

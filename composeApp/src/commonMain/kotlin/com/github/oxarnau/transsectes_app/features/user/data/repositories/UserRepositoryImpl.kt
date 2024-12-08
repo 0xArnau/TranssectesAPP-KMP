@@ -1,8 +1,8 @@
-package com.github.oxarnau.transsectes_app.shared.data.repositories
+package com.github.oxarnau.transsectes_app.features.user.data.repositories
 
-import com.github.oxarnau.transsectes_app.features.user.entity.User
-import com.github.oxarnau.transsectes_app.features.user.repositories.UserRepository
-import com.github.oxarnau.transsectes_app.shared.data.datasources.local.UserLocalDataSource
+import com.github.oxarnau.transsectes_app.features.user.data.datasources.local.UserLocalDataSource
+import com.github.oxarnau.transsectes_app.features.user.domain.entity.User
+import com.github.oxarnau.transsectes_app.features.user.domain.repositories.UserRepository
 
 /**
  * Implementation of the [UserRepository] interface.

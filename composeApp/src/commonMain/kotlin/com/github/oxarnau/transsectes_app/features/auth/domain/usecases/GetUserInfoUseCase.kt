@@ -3,7 +3,7 @@ package com.github.oxarnau.transsectes_app.features.auth.domain.usecases
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
-import com.github.oxarnau.transsectes_app.features.user.entity.User
+import com.github.oxarnau.transsectes_app.features.user.domain.entity.User
 
 /**
  * Use case for retrieving information about the currently authenticated user.

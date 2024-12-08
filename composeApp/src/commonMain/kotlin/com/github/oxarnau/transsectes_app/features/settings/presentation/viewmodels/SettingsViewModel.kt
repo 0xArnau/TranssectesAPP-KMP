@@ -7,7 +7,7 @@ import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.auth.domain.usecases.SignOutUseCase
 import com.github.oxarnau.transsectes_app.features.settings.presentation.intents.SettingsIntent
 import com.github.oxarnau.transsectes_app.features.settings.presentation.states.SettingsState
-import com.github.oxarnau.transsectes_app.features.user.usecases.GetUserUseCase
+import com.github.oxarnau.transsectes_app.features.user.domain.usecases.GetUserUseCase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow

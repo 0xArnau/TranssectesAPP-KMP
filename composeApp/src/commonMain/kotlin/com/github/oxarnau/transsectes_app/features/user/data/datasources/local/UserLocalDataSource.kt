@@ -1,6 +1,6 @@
-package com.github.oxarnau.transsectes_app.shared.data.datasources.local
+package com.github.oxarnau.transsectes_app.features.user.data.datasources.local
 
-import com.github.oxarnau.transsectes_app.features.user.entity.User
+import com.github.oxarnau.transsectes_app.features.user.domain.entity.User
 
 /**
  * Interface for managing user data locally.

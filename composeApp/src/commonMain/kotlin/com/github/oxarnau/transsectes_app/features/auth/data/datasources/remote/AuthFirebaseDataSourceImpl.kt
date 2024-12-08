@@ -5,19 +5,20 @@ import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.auth.data.mappers.UserMapper
 import com.github.oxarnau.transsectes_app.features.auth.data.models.UserModel
 import com.github.oxarnau.transsectes_app.features.auth.domain.datasources.AuthDataSource
-import com.github.oxarnau.transsectes_app.features.user.entity.User
+import com.github.oxarnau.transsectes_app.features.user.domain.entity.User
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseUser
-import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.firestore.firestore
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
  * Remote data source for authentication operations using Firebase.
  */
-class AuthFirebaseDataSourceImpl : AuthDataSource {
+class AuthFirebaseDataSourceImpl : AuthDataSource, KoinComponent {
 
-    private val auth: FirebaseAuth by lazy { Firebase.auth }
+    private val auth: FirebaseAuth by inject()
 
     override suspend fun signIn(
         email: String,

@@ -3,7 +3,7 @@ package com.github.oxarnau.transsectes_app.features.transect.domain.usecases
 import com.github.oxarnau.transsectes_app.core.domain.DataError
 import com.github.oxarnau.transsectes_app.core.domain.Result
 import com.github.oxarnau.transsectes_app.features.transect.domain.repositories.TransectRepository
-import com.github.oxarnau.transsectes_app.features.user.repositories.UserRepository
+import com.github.oxarnau.transsectes_app.features.user.domain.repositories.UserRepository
 
 /**
  * Use case for removing all transects from the system.
