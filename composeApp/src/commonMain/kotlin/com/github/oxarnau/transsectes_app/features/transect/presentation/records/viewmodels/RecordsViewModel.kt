@@ -3,6 +3,8 @@ package com.github.oxarnau.transsectes_app.features.transect.presentation.record
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.core.domain.Result
+import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCurrentUserUseCase
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.states.RecordsState
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -10,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -20,7 +23,9 @@ import kotlinx.coroutines.launch
  * - Managing the state of records and handling state updates.
  * - Emitting navigation events to direct the user to different routes.
  */
-class RecordsViewModel : ViewModel() {
+class RecordsViewModel(
+    private val getTransectByCurrentUserUseCase: GetTransectByCurrentUserUseCase
+) : ViewModel() {
 
     // Mutable SharedFlow that emits navigation events to different routes.
     private val _navigation = MutableSharedFlow<Route>(replay = 1)
@@ -61,12 +66,41 @@ class RecordsViewModel : ViewModel() {
         }
     }
 
+    fun clearErrorMessage() {
+        _state.update { it.copy(errorMessage = null) }
+    }
+
     /**
      * Initializes the state for records. This could include setting up any necessary data
      * or pre-processing before the UI is displayed.
      */
     private fun initializeRecordsState() {
+        // TODO: remove
         println("Records ViewModel initialized.")
+
+        viewModelScope.launch {
+            _state.update { it.copy(isLoading = true) }
+
+            when (val response = getTransectByCurrentUserUseCase.invoke()) {
+                is Result.Success -> _state.update {
+                    it.copy(
+                        isLoading = false,
+                        records = response.data,
+                    )
+                }
+
+                is Result.Error -> _state.update {
+                    it.copy(
+                        isLoading = false,
+                        records = listOf(),
+                        errorMessage = response.error.toString(),
+                    )
+                }
+            }
+
+            println("initializeRecordsState: ${_state.value.records}")
+
+        }
     }
 
     /**

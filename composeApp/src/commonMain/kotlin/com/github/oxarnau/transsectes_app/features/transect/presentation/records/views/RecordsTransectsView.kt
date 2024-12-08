@@ -1,7 +1,10 @@
 package com.github.oxarnau.transsectes_app.features.transect.presentation.records.views
 
 // Necessary imports
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Download
@@ -12,6 +15,7 @@ import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Person2
 import androidx.compose.material.icons.outlined.Remove
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +23,8 @@ import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -26,8 +32,13 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -76,8 +87,14 @@ fun RecordsTransectsView(
 
     val scrollBehavior =
         TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
     val navControllerGraph =
         rememberNavController() // Navigation controller for the graph
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    val state = viewModel.state.collectAsStateWithLifecycle().value
+
 
     // Handle navigation actions from the ViewModel
     LaunchedEffect(viewModel.navigation) {
@@ -101,8 +118,19 @@ fun RecordsTransectsView(
         }
     }
 
+    // Show error messages in a Snackbar if there's an error
+    LaunchedEffect(state.errorMessage) {
+        state.errorMessage?.let {
+            snackbarHostState.showSnackbar(it)
+        }
+
+        viewModel.clearErrorMessage()
+    }
+
     // Define the layout using Scaffold
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = { TopAppBar(navController, scrollBehavior) },
         bottomBar = {
             BottomNavigationBar(
@@ -112,7 +140,20 @@ fun RecordsTransectsView(
             )
         }
     ) { innerPadding ->
-        TransectRecordsGraph(navControllerGraph, innerPadding)
+        if (state.isLoading) {
+            // Display a loading indicator
+            Box(
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            TransectRecordsGraph(
+                navControllerGraph,
+                innerPadding,
+            )
+        }
     }
 }
 
