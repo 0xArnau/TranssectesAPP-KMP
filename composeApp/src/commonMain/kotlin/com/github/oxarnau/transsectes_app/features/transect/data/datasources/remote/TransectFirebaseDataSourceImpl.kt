@@ -38,6 +38,7 @@ class TransectFirebaseDataSourceImpl : TransectDataSource, KoinComponent {
                 docRef
                     .map { TransectFirebaseMapperImpl().toEntity(it) }
                     .filter { it.createdBy == currentUserEmail }
+                    .sortedByDescending { it.createdAt }
 
             // TODO: remove
             println("getTransectByCurrentUser: ${docRef} ${transects}")
