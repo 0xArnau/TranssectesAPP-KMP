@@ -17,8 +17,8 @@ class TransectFirebaseMapperImpl : TransectMapper<DocumentSnapshot> {
         return Transect(
             administrativeAreaFirst = item.get("administrativeAreaFirst"),
             administrativeAreaLast = item.get("administrativeAreaLast"),
-            localityAreaFirst = item.get("localityAreaFirst"),
-            localityAreaLast = item.get("localityAreaLast"),
+            localityAreaFirst = item.get("localityFirst"),
+            localityAreaLast = item.get("localityLast"),
             subAdministrativeAreaFirst = item.get("subAdministrativeAreaFirst"),
             subAdministrativeAreaLast = item.get("subAdministrativeAreaLast"),
             coordinates = toCoordinates(item.get("coordinates")),
