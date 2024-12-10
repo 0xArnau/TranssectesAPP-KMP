@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomCard
@@ -32,7 +33,8 @@ fun MyTransectsView(
                 leadingText = record.localityAreaFirst ?: "",
                 title = record.createdAt.toString(),
                 subtitle = record.observations,
-                onClick = { println("Created by ${record.createdBy} at ${record.createdAt}") }
+                onClick = { println("Created by ${record.createdBy} at ${record.createdAt}") },
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
         }
     }

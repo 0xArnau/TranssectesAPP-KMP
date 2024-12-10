@@ -24,12 +24,12 @@ fun CustomCard(
     leadingText: String,
     title: String,
     subtitle: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(8.dp),
 //        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
