@@ -86,12 +86,6 @@ fun SettingsView(
         }
     }
 
-    LaunchedEffect(state) {
-        println(
-            "state: $state, isLoading: ${state.isLoading}, email: ${state.email}, isTechnician: ${state.isTechnician}"
-        )
-    }
-
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {

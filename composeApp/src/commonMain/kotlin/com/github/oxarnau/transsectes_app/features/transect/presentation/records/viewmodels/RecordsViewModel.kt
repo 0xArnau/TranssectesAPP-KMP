@@ -72,7 +72,35 @@ class RecordsViewModel(
                 navigate(Route.AllTransects)
             }
 
-            is RecordsIntent.onGoBackClick -> navigate(Route.Home)  // Navigate back to Home screen
+            is RecordsIntent.onGoBackClick -> {
+                // TODO:
+                // - clear _state.records
+                // - clear _state.detailedRecord
+
+                navigate(Route.Home)
+            }
+
+            is RecordsIntent.onTransectClick -> {
+                // Update loading
+                _state.update { it.copy(isLoading = true) }
+
+                // Search in _state.records for the intent.index
+                val transect = _state.value.records.getOrNull(intent.index)
+
+                // TODO: remove
+                println("$transect")
+
+                // Update _state.detailedRecord
+                _state.update {
+                    it.copy(
+                        isLoading = false,
+                        detailedRecord = transect
+                    )
+                }
+
+                // navigate to detailed route
+                navigate(Route.DetailedTransect)
+            }
         }
     }
 
@@ -85,9 +113,6 @@ class RecordsViewModel(
      * or pre-processing before the UI is displayed.
      */
     private fun initializeRecordsState() {
-        // TODO: remove
-        println("Records ViewModel initialized.")
-
         fetchTransects(getTransectByCurrentUserUseCase)
     }
 
@@ -144,9 +169,6 @@ class RecordsViewModel(
                             records = result.data,
                         )
                     }
-
-                    // TODO: remove
-                    println("Fetched records: ${result.data}")
                 }
 
                 is Result.Error -> {
@@ -158,9 +180,6 @@ class RecordsViewModel(
                             errorMessage = result.error.toString(),
                         )
                     }
-
-                    // TODO: remove
-                    println("Error fetching records: ${result.error}")
                 }
             }
         }

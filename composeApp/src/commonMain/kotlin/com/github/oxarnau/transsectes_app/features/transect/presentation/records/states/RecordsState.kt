@@ -11,5 +11,6 @@ import com.github.oxarnau.transsectes_app.features.transect.domain.entities.Tran
 data class RecordsState(
     val isLoading: Boolean = false,
     val records: List<Transect> = listOf(),
+    val detailedRecord: Transect? = null,
     val errorMessage: String? = null,
 )

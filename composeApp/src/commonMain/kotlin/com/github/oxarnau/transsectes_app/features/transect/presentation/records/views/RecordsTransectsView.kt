@@ -49,7 +49,6 @@ import com.github.oxarnau.transsectes_app.features.transect.presentation.records
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.navigation.TransectRecordsGraph
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.go_back
 
@@ -81,7 +80,7 @@ data class BottomItem(
 @Composable
 fun RecordsTransectsView(
     navController: NavHostController,
-    viewModel: RecordsViewModel = koinViewModel(),
+    viewModel: RecordsViewModel,
 ) {
     val items = getBottomNavigationItems() // Fetch navigation items
 
@@ -100,7 +99,9 @@ fun RecordsTransectsView(
     LaunchedEffect(viewModel.navigation) {
         viewModel.navigation.collect { route ->
             when (route) {
+                // TODO: create a GoBack Route
                 is Route.Home -> navController.popBackStack() // Navigate to home
+                is Route.DetailedTransect -> navController.navigate(route)
                 else -> {
                     val currentRoute =
                         navControllerGraph.currentBackStackEntry?.destination?.route?.split(
@@ -131,7 +132,7 @@ fun RecordsTransectsView(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        topBar = { TopAppBar(navController, scrollBehavior) },
+        topBar = { TopAppBar(navController, scrollBehavior, "Transects") },
         bottomBar = {
             BottomNavigationBar(
                 items = items,
@@ -227,16 +228,18 @@ fun getBottomNavigationItems(): List<BottomItem> {
 fun TopAppBar(
     navController: NavHostController,
     scrollBehavior: TopAppBarScrollBehavior,
+    label: String,
 ) {
     MediumTopAppBar(
         title = {
             Text(
-                "Transects",
+                label,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = {
+            // TODO: emit an intent
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,

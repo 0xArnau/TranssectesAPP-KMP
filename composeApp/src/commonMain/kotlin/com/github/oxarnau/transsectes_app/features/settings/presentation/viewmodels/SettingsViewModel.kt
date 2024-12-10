@@ -75,14 +75,6 @@ class SettingsViewModel(
             // Fetch user data using the GetUserUseCase
             val user = getUserUseCase()
 
-            // TODO: remove
-            println(
-                "id=${user?.id}, email=${user?.email} " +
-                        "isEmailVerified=${user?.isEmailVerified} " +
-                        "isTechnician=${user?.isTechnician} "
-            )
-
-
             // Update the state with the fetched user data and set loading to false
             _state.update {
                 it.copy(
