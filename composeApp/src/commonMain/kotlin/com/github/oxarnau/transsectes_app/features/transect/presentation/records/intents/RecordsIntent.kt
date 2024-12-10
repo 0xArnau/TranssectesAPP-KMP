@@ -30,4 +30,9 @@ sealed interface RecordsIntent {
      * Intent triggered when the user clicks on the "Go Back" button.
      */
     data object onGoBackClick : RecordsIntent
+
+    /**
+     * Intent triggered when the user clicks on the "Transect" card.
+     */
+    data class onTransectClick(val index: Int) : RecordsIntent
 }

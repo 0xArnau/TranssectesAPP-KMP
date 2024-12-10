@@ -5,6 +5,9 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
 
     @Serializable
+    data object GoBack : Route
+
+    @Serializable
     data object Splash : Route
 
     @Serializable
@@ -69,4 +72,7 @@ sealed interface Route {
 
     @Serializable
     data object RemoveTransects : Route
+
+    @Serializable
+    data object DetailedTransect : Route
 }

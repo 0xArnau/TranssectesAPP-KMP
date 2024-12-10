@@ -49,7 +49,6 @@ import com.github.oxarnau.transsectes_app.features.transect.presentation.records
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.navigation.TransectRecordsGraph
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.go_back
 
@@ -81,7 +80,7 @@ data class BottomItem(
 @Composable
 fun RecordsTransectsView(
     navController: NavHostController,
-    viewModel: RecordsViewModel = koinViewModel(),
+    viewModel: RecordsViewModel,
 ) {
     val items = getBottomNavigationItems() // Fetch navigation items
 
@@ -99,16 +98,22 @@ fun RecordsTransectsView(
     // Handle navigation actions from the ViewModel
     LaunchedEffect(viewModel.navigation) {
         viewModel.navigation.collect { route ->
+            println("RecordsTransectsView Route: ${route}")
             when (route) {
-                is Route.Home -> navController.popBackStack() // Navigate to home
+                is Route.GoBack -> navController.navigate(Route.Home) {
+                    popUpTo(Route.Home) { inclusive = true }
+                    launchSingleTop = true
+                } // Navigate to home
+                is Route.DetailedTransect -> navController.navigate(route)
                 else -> {
                     val currentRoute =
                         navControllerGraph.currentBackStackEntry?.destination?.route?.split(
                             '.'
                         )?.lastOrNull() ?: ""
                     if (currentRoute != route.toString()) {
-                        navControllerGraph.popBackStack()
+//                        navControllerGraph.popBackStack()
                         navControllerGraph.navigate(route) {
+                            popUpTo(0)
                             launchSingleTop =
                                 true // Avoid duplicate destinations
                         }
@@ -131,7 +136,13 @@ fun RecordsTransectsView(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        topBar = { TopAppBar(navController, scrollBehavior) },
+        topBar = {
+            TopAppBar(
+                { viewModel.onIntent(RecordsIntent.onGoBackClick) },
+                scrollBehavior,
+                "Transects"
+            )
+        },
         bottomBar = {
             BottomNavigationBar(
                 items = items,
@@ -225,19 +236,21 @@ fun getBottomNavigationItems(): List<BottomItem> {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
-    navController: NavHostController,
+    emitIntent: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
+    label: String,
 ) {
     MediumTopAppBar(
         title = {
             Text(
-                "Transects",
+                label,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
+            // TODO: emit an intent
+            IconButton(onClick = { emitIntent() }) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(Res.string.go_back)

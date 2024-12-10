@@ -17,7 +17,10 @@ import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowT
 import com.github.oxarnau.transsectes_app.features.howto.presentation.views.HowTo7
 import com.github.oxarnau.transsectes_app.features.settings.presentation.views.SettingsView
 import com.github.oxarnau.transsectes_app.features.splash.presentation.view.SplashView
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.RecordsTransectsView
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.TransectsDetailView
+import org.koin.compose.viewmodel.koinViewModel
 
 expect fun log(tag: String, message: String)
 
@@ -25,6 +28,7 @@ expect fun log(tag: String, message: String)
 fun NavigationWrapper() {
     val navController = rememberNavController()
 
+    val recordsViewModel: RecordsViewModel = koinViewModel()
 
     navController.addOnDestinationChangedListener { controller, _, _ ->
         val routes = controller
@@ -32,7 +36,7 @@ fun NavigationWrapper() {
             .map { it.destination.route }
             .joinToString(", ")
 
-        log("NavController: BackStackLog", "BackStack: $routes")
+        println("NavController: NavigationWrapper BackStack: $routes")
     }
 
     NavHost(
@@ -127,7 +131,11 @@ fun NavigationWrapper() {
         }
 
         composable<Route.RecordsTransects> {
-            RecordsTransectsView(navController)
+            RecordsTransectsView(navController, recordsViewModel)
+        }
+
+        composable<Route.DetailedTransect> {
+            TransectsDetailView(navController, recordsViewModel)
         }
     }
 }
