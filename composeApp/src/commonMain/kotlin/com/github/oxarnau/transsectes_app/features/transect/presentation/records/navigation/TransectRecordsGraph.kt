@@ -6,15 +6,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.oxarnau.transsectes_app.app.navigation.Route
-import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.AllTransectsView
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.DownloadTransectsView
-import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.MyTransectsView
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.RemoveTransectsView
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.TransectsListView
 
 @Composable
 fun TransectRecordsGraph(
     navController: NavHostController,
-    innerPadding: PaddingValues
+    innerPadding: PaddingValues,
+    recordsViewModel: RecordsViewModel,
 ) {
 
     navController.addOnDestinationChangedListener { controller, _, _ ->
@@ -31,11 +32,11 @@ fun TransectRecordsGraph(
         startDestination = Route.MyTransects,
     ) {
         composable<Route.MyTransects> {
-            MyTransectsView(innerPadding)
+            TransectsListView(innerPadding, recordsViewModel)
         }
 
         composable<Route.AllTransects> {
-            AllTransectsView(innerPadding)
+            TransectsListView(innerPadding, recordsViewModel)
         }
 
         composable<Route.DonwloadTransects> {

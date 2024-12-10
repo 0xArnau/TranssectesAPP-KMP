@@ -12,13 +12,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomCard
-import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyTransectsView(
+fun TransectsListView(
     innerPadding: PaddingValues,
-    viewModel: RecordsViewModel = koinViewModel()
+    viewModel: RecordsViewModel,
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle().value
 

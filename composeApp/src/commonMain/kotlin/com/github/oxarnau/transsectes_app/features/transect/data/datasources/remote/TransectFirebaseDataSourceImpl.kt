@@ -53,7 +53,28 @@ class TransectFirebaseDataSourceImpl : TransectDataSource, KoinComponent {
     }
 
     override suspend fun getAllTransects(): Result<List<Transect>, DataError> {
-        TODO("Not yet implemented")
+        return try {
+            // Get documents & Filter by createdBy == currentUserEmail
+            val docRef = store
+                .collection("transects")
+                .get()
+                .documents
+
+            val transects =
+                docRef
+                    .map { TransectFirebaseMapperImpl().toEntity(it) }
+                    .sortedByDescending { it.createdAt }
+
+            // TODO: remove
+            println("getAllTransects: ${docRef} ${transects}")
+
+            Result.Success(transects)
+        } catch (e: Exception) {
+            // TODO: remove
+            println("getAllTransects: ${e.message}")
+
+            Result.Error(DataError.Remote.UNKNOWN)
+        }
     }
 
     override suspend fun saveTransect(transect: Transect): Result<Nothing, DataError> {

@@ -152,6 +152,7 @@ fun RecordsTransectsView(
             TransectRecordsGraph(
                 navControllerGraph,
                 innerPadding,
+                viewModel
             )
         }
     }

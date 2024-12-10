@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.core.domain.Result
+import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetAllTransectsUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCurrentUserUseCase
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.states.RecordsState
@@ -24,7 +25,8 @@ import kotlinx.coroutines.launch
  * - Emitting navigation events to direct the user to different routes.
  */
 class RecordsViewModel(
-    private val getTransectByCurrentUserUseCase: GetTransectByCurrentUserUseCase
+    private val getTransectByCurrentUserUseCase: GetTransectByCurrentUserUseCase,
+    private val getAllTransectsUseCase: GetAllTransectsUseCase,
 ) : ViewModel() {
 
     // Mutable SharedFlow that emits navigation events to different routes.
@@ -60,8 +62,16 @@ class RecordsViewModel(
         when (intent) {
             is RecordsIntent.onRemoveClick -> navigate(Route.RemoveTransects)  // Navigate to Remove Transects screen
             is RecordsIntent.onDownloadClick -> navigate(Route.DonwloadTransects)  // Navigate to Download Transects screen
-            is RecordsIntent.onMyTransectsClick -> navigate(Route.MyTransects)  // Navigate to My Transects screen
-            is RecordsIntent.onAllTransectsClick -> navigate(Route.AllTransects)  // Navigate to All Transects screen
+            is RecordsIntent.onMyTransectsClick -> {
+                fetchTransects(getTransectByCurrentUserUseCase)
+                navigate(Route.MyTransects)
+            }
+
+            is RecordsIntent.onAllTransectsClick -> {
+                fetchTransects(getAllTransectsUseCase)
+                navigate(Route.AllTransects)
+            }
+
             is RecordsIntent.onGoBackClick -> navigate(Route.Home)  // Navigate back to Home screen
         }
     }
@@ -78,29 +88,7 @@ class RecordsViewModel(
         // TODO: remove
         println("Records ViewModel initialized.")
 
-        viewModelScope.launch {
-            _state.update { it.copy(isLoading = true) }
-
-            when (val response = getTransectByCurrentUserUseCase.invoke()) {
-                is Result.Success -> _state.update {
-                    it.copy(
-                        isLoading = false,
-                        records = response.data,
-                    )
-                }
-
-                is Result.Error -> _state.update {
-                    it.copy(
-                        isLoading = false,
-                        records = listOf(),
-                        errorMessage = response.error.toString(),
-                    )
-                }
-            }
-
-            println("initializeRecordsState: ${_state.value.records}")
-
-        }
+        fetchTransects(getTransectByCurrentUserUseCase)
     }
 
     /**
@@ -113,4 +101,69 @@ class RecordsViewModel(
             _navigation.emit(route)  // Emit the route as a navigation event
         }
     }
+
+    /**
+     * Fetches transects based on the provided use case.
+     *
+     * This function handles fetching transects by calling the appropriate use case,
+     * depending on the type of the provided use case instance.
+     * It updates the UI state based on the result of the operation (success or error).
+     *
+     * @param usecase The use case responsible for fetching transects. It can be either:
+     * - [GetTransectByCurrentUserUseCase] for fetching transects created by the current user.
+     * - [GetAllTransectsUseCase] for fetching all transects.
+     */
+    private fun <T> fetchTransects(usecase: T) {
+        viewModelScope.launch {
+            // Start loading state
+            _state.update { it.copy(isLoading = true) }
+
+            // Identify which use case to execute and fetch the data
+            val result = when (usecase) {
+                is GetTransectByCurrentUserUseCase -> usecase.invoke()  // Fetch transects created by current user
+                is GetAllTransectsUseCase -> usecase.invoke()  // Fetch all transects
+                else -> {
+                    // If the use case is unsupported, update the state with an error message
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            errorMessage = "Unsupported use case"
+                        )
+                    }
+                    return@launch  // Exit early if use case is unsupported
+                }
+            }
+
+            // Handle the result of the use case invocation
+            when (result) {
+                is Result.Success -> {
+                    // If the operation succeeded, update the state with the fetched transects
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            records = result.data,
+                        )
+                    }
+
+                    // TODO: remove
+                    println("Fetched records: ${result.data}")
+                }
+
+                is Result.Error -> {
+                    // If an error occurred, update the state with an error message and empty records
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            records = listOf(),
+                            errorMessage = result.error.toString(),
+                        )
+                    }
+
+                    // TODO: remove
+                    println("Error fetching records: ${result.error}")
+                }
+            }
+        }
+    }
+
 }
