@@ -98,9 +98,12 @@ fun RecordsTransectsView(
     // Handle navigation actions from the ViewModel
     LaunchedEffect(viewModel.navigation) {
         viewModel.navigation.collect { route ->
+            println("RecordsTransectsView Route: ${route}")
             when (route) {
-                // TODO: create a GoBack Route
-                is Route.Home -> navController.popBackStack() // Navigate to home
+                is Route.GoBack -> navController.navigate(Route.Home) {
+                    popUpTo(Route.Home) { inclusive = true }
+                    launchSingleTop = true
+                } // Navigate to home
                 is Route.DetailedTransect -> navController.navigate(route)
                 else -> {
                     val currentRoute =
@@ -108,8 +111,9 @@ fun RecordsTransectsView(
                             '.'
                         )?.lastOrNull() ?: ""
                     if (currentRoute != route.toString()) {
-                        navControllerGraph.popBackStack()
+//                        navControllerGraph.popBackStack()
                         navControllerGraph.navigate(route) {
+                            popUpTo(0)
                             launchSingleTop =
                                 true // Avoid duplicate destinations
                         }
@@ -132,7 +136,13 @@ fun RecordsTransectsView(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        topBar = { TopAppBar(navController, scrollBehavior, "Transects") },
+        topBar = {
+            TopAppBar(
+                { viewModel.onIntent(RecordsIntent.onGoBackClick) },
+                scrollBehavior,
+                "Transects"
+            )
+        },
         bottomBar = {
             BottomNavigationBar(
                 items = items,
@@ -226,7 +236,7 @@ fun getBottomNavigationItems(): List<BottomItem> {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBar(
-    navController: NavHostController,
+    emitIntent: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     label: String,
 ) {
@@ -240,7 +250,7 @@ fun TopAppBar(
         },
         navigationIcon = {
             // TODO: emit an intent
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(onClick = { emitIntent() }) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(Res.string.go_back)

@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,6 +38,19 @@ fun TransectsDetailView(
 
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
+    // Handle navigation actions from the ViewModel
+    LaunchedEffect(viewModel.navigation) {
+        viewModel.navigation.collect { route ->
+            println("TransectsDetailView Route: ${route}")
+            if (route == Route.GoBack) {
+                navController.navigate(Route.RecordsTransects) {
+                    popUpTo(Route.RecordsTransects) { inclusive = true }
+                    launchSingleTop = true
+                }
+            }
+        }
+    }
+
     // Show error messages in a Snackbar if there's an error
     LaunchedEffect(state.errorMessage) {
         state.errorMessage?.let {
@@ -50,7 +65,7 @@ fun TransectsDetailView(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             TopAppBar(
-                navController,
+                { viewModel.onIntent(RecordsIntent.onGoBackClick) },
                 scrollBehavior,
                 "Transects Detail"
             )

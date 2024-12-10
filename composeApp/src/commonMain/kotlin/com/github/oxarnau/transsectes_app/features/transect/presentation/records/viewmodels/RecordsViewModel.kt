@@ -30,7 +30,7 @@ class RecordsViewModel(
 ) : ViewModel() {
 
     // Mutable SharedFlow that emits navigation events to different routes.
-    private val _navigation = MutableSharedFlow<Route>(replay = 1)
+    private val _navigation = MutableSharedFlow<Route>(replay = 0)
     val navigation: SharedFlow<Route> =
         _navigation  // Exposed as a SharedFlow for observation
 
@@ -73,11 +73,7 @@ class RecordsViewModel(
             }
 
             is RecordsIntent.onGoBackClick -> {
-                // TODO:
-                // - clear _state.records
-                // - clear _state.detailedRecord
-
-                navigate(Route.Home)
+                navigate(Route.GoBack)
             }
 
             is RecordsIntent.onTransectClick -> {
