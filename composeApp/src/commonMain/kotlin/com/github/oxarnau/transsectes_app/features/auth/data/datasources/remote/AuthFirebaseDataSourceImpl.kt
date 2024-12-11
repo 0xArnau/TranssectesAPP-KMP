@@ -46,7 +46,7 @@ class AuthFirebaseDataSourceImpl : AuthDataSource, KoinComponent {
 
     override suspend fun signUp(
         email: String,
-        password: String
+        password: String,
     ): Result<User, DataError.Remote> {
         return try {
             val user = auth.createUserWithEmailAndPassword(email, password).user
@@ -133,6 +133,8 @@ class AuthFirebaseDataSourceImpl : AuthDataSource, KoinComponent {
      * @return [Result.Error] with the appropriate [DataError.Remote].
      */
     private fun mapFirebaseException(e: Exception): Result.Error<DataError.Remote> {
+        println("AuthFirebaseDataSourceImpl - mapFirebaseException => message: ${e.message}, cause ${e.cause}")
+
         val error = when (e.message) {
             "A network error (such as timeout, interrupted connection or unreachable host) has occurred." ->
                 DataError.Remote.NO_INTERNET
