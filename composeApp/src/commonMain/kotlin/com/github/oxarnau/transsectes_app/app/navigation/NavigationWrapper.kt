@@ -22,8 +22,6 @@ import com.github.oxarnau.transsectes_app.features.transect.presentation.records
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.TransectsDetailView
 import org.koin.compose.viewmodel.koinViewModel
 
-expect fun log(tag: String, message: String)
-
 @Composable
 fun NavigationWrapper() {
     val navController = rememberNavController()
@@ -44,7 +42,7 @@ fun NavigationWrapper() {
         startDestination = Route.Splash
     ) {
         composable<Route.Splash> {
-            log("NavController", "Route.Splash")
+            println("NavController - Route.Splash")
             SplashView {
                 navController.navigate(Route.Auth) {
                     popUpTo(Route.Splash) { inclusive = true }
