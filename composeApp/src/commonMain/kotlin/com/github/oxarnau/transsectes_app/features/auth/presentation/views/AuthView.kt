@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -58,62 +60,64 @@ fun AuthView(
         }
     }
 
-    if (state.isLoading) {
-        // Display a loading indicator
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
-        }
-    } else {
-        // Display the authentication options
-        val isDarkMode = isSystemInDarkTheme()
-        val newColor = if (isDarkMode) null else Color.Black
+    Scaffold { innerPadding ->
+        if (state.isLoading) {
+            // Display a loading indicator
+            Box(
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
+            // Display the authentication options
+            val isDarkMode = isSystemInDarkTheme()
+            val newColor = if (isDarkMode) null else Color.Black
 
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            Spacer(modifier = Modifier.weight(0.5f))
+            Column(
+                modifier = Modifier.fillMaxSize().padding(innerPadding)
+            ) {
+                Spacer(modifier = Modifier.weight(0.5f))
 
-            Image(
-                painterResource(Res.drawable.imatge_tortuga),
-                contentDescription = "White turtle image on transparent background", // TODO: i18n
-                colorFilter = newColor?.let {
-                    ColorFilter.tint(
-                        color = it,
-                        blendMode = BlendMode.SrcIn
+                Image(
+                    painterResource(Res.drawable.imatge_tortuga),
+                    contentDescription = "White turtle image on transparent background", // TODO: i18n
+                    colorFilter = newColor?.let {
+                        ColorFilter.tint(
+                            color = it,
+                            blendMode = BlendMode.SrcIn
+                        )
+                    },
+                    modifier = Modifier.align(Alignment.End).size(300.dp)
+                )
+
+                Text(
+                    text = "Transsectes APP",
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                    ),
+                    modifier = Modifier
+                        .windowInsetsPadding(WindowInsets.safeContent)
+                        .align(Alignment.CenterHorizontally)
+                )
+
+                Spacer(modifier = Modifier.weight(2f))
+
+                Column {
+                    CustomButton(
+                        text = "Create account",
+                        goto = { viewModel.onIntent(AuthIntent.onSignUpClick) },
+                        modifier = Modifier.fillMaxWidth()
                     )
-                },
-                modifier = Modifier.align(Alignment.End).size(300.dp)
-            )
 
-            Text(
-                text = "Transsectes APP",
-                textAlign = TextAlign.Center,
-                style = TextStyle(
-                    fontSize = 48.sp,
-                    fontWeight = FontWeight.Bold,
-                ),
-                modifier = Modifier
-                    .windowInsetsPadding(WindowInsets.safeContent)
-                    .align(Alignment.CenterHorizontally)
-            )
-
-            Spacer(modifier = Modifier.weight(2f))
-
-            Column {
-                CustomButton(
-                    text = "Create account",
-                    goto = { viewModel.onIntent(AuthIntent.onSignUpClick) },
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                CustomButton(
-                    text = "Sign In",
-                    goto = { viewModel.onIntent(AuthIntent.onSignInClick) },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    CustomButton(
+                        text = "Sign In",
+                        goto = { viewModel.onIntent(AuthIntent.onSignInClick) },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
     }
