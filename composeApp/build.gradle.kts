@@ -29,6 +29,13 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+
+            // Enlazar los frameworks de Firebase necesarios
+            linkerOpts(
+                "-framework", "FirebaseCore",
+                "-framework", "FirebaseAuth",
+                "-framework", "FirebaseFirestore"
+            )
         }
     }
 
