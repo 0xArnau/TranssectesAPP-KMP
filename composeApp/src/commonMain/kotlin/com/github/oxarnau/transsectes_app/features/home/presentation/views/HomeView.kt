@@ -1,7 +1,5 @@
 package com.github.oxarnau.transsectes_app.features.home.presentation.views
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,16 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.github.oxarnau.transsectes_app.shared.presentation.components.BottomAppBarWithLogo
 import com.github.oxarnau.transsectes_app.shared.presentation.components.ImageTextButton
 import com.github.oxarnau.transsectes_app.shared.presentation.components.TextImageButton
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.app_name
 import transsectesapp.composeapp.generated.resources.book
 import transsectesapp.composeapp.generated.resources.contact
-import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
-import transsectesapp.composeapp.generated.resources.gepec_edc_oficial_blanc
 import transsectesapp.composeapp.generated.resources.home_contact
 import transsectesapp.composeapp.generated.resources.home_how_to
 import transsectesapp.composeapp.generated.resources.home_records
@@ -77,12 +72,7 @@ fun HomeView(
             )
         },
         bottomBar = {
-            BottomAppBar {
-                Image(
-                    painter = painterResource(if (isSystemInDarkTheme()) Res.drawable.gepec_edc_oficial_blanc else Res.drawable.gepec_edc_oficial),
-                    contentDescription = null // TODO: use string
-                )
-            }
+            BottomAppBarWithLogo()
         }
     ) { innerPadding ->
         ScrollContent(

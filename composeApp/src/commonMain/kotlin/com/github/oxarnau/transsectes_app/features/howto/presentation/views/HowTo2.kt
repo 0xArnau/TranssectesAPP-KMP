@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,10 +24,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.github.oxarnau.transsectes_app.shared.presentation.components.BottomAppBarWithLogo
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
-import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
 import transsectesapp.composeapp.generated.resources.go_back
 import transsectesapp.composeapp.generated.resources.how2_2_p1
 import transsectesapp.composeapp.generated.resources.how2_2_p2
@@ -79,12 +78,7 @@ fun HowTo2(
             )
         },
         bottomBar = {
-            BottomAppBar {
-                Image(
-                    painter = painterResource(Res.drawable.gepec_edc_oficial),
-                    contentDescription = "GePeC-EdC logo",
-                )
-            }
+            BottomAppBarWithLogo()
         },
     ) { innerPadding ->
         LazyColumn(

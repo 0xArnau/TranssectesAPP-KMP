@@ -1,6 +1,5 @@
 package com.github.oxarnau.transsectes_app.features.settings.presentation.views
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,12 +39,11 @@ import androidx.navigation.NavController
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.features.settings.presentation.intents.SettingsIntent
 import com.github.oxarnau.transsectes_app.features.settings.presentation.viewmodels.SettingsViewModel
+import com.github.oxarnau.transsectes_app.shared.presentation.components.BottomAppBarWithLogo
 import com.github.oxarnau.transsectes_app.shared.presentation.components.CustomButton
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import transsectesapp.composeapp.generated.resources.Res
-import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
 import transsectesapp.composeapp.generated.resources.go_back
 import transsectesapp.composeapp.generated.resources.settings
 
@@ -109,12 +106,7 @@ fun SettingsView(
             )
         },
         bottomBar = {
-            BottomAppBar {
-                Image(
-                    painter = painterResource(Res.drawable.gepec_edc_oficial),
-                    contentDescription = "GePeC-EdC logo",
-                )
-            }
+            BottomAppBarWithLogo()
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->

@@ -1,6 +1,5 @@
 package com.github.oxarnau.transsectes_app.features.contact.presentation.views
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,7 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.painterResource
+import com.github.oxarnau.transsectes_app.shared.presentation.components.BottomAppBarWithLogo
 import org.jetbrains.compose.resources.stringResource
 import transsectesapp.composeapp.generated.resources.Res
 import transsectesapp.composeapp.generated.resources.contact_p1
@@ -38,7 +36,6 @@ import transsectesapp.composeapp.generated.resources.contact_p4
 import transsectesapp.composeapp.generated.resources.contact_p5
 import transsectesapp.composeapp.generated.resources.contact_p6
 import transsectesapp.composeapp.generated.resources.contact_title
-import transsectesapp.composeapp.generated.resources.gepec_edc_oficial
 import transsectesapp.composeapp.generated.resources.gepec_info_email_especies
 import transsectesapp.composeapp.generated.resources.gepec_info_email_voluntariat
 import transsectesapp.composeapp.generated.resources.gepec_info_website
@@ -73,12 +70,7 @@ fun ContactView(goBack: () -> Unit) {
             )
         },
         bottomBar = {
-            BottomAppBar {
-                Image(
-                    painter = painterResource(Res.drawable.gepec_edc_oficial),
-                    contentDescription = "GePeC-EdC logo",
-                )
-            }
+            BottomAppBarWithLogo()
         },
     ) { innerPadding ->
         LazyColumn(
