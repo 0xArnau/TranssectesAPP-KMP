@@ -210,7 +210,11 @@ fun GoToMapsItem() {
             .clickable { println("GoToMapsItem clicked") }, // TODO
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text("See transect on map (coordinates)") // TODO: i18n
+        Text(
+            "See transect on map (coordinates)",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        ) // TODO: i18n
         Icon(Icons.Filled.ChevronRight, contentDescription = null) // TODO
     }
 }
