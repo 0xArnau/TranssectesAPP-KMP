@@ -71,6 +71,9 @@ class RecordsViewModel(
                     fileName = "$fileName.csv",
                     content = intent.content,
                 )
+
+                // TODO: i18n
+                _state.update { it.copy(okMessage = "CSV file has been downloaded. Go to \nAndroid: Files > Downloads\niOS: Browse > TranssectesAPP") }
             }
 
             is RecordsIntent.onMyTransectsClick -> {
@@ -113,6 +116,10 @@ class RecordsViewModel(
 
     fun clearErrorMessage() {
         _state.update { it.copy(errorMessage = null) }
+    }
+
+    fun clearOkMessage() {
+        _state.update { it.copy(okMessage = null) }
     }
 
     /**

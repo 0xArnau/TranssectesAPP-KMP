@@ -13,4 +13,5 @@ data class RecordsState(
     val records: List<Transect> = listOf(),
     val detailedRecord: Transect? = null,
     val errorMessage: String? = null,
+    val okMessage: String? = null,
 )

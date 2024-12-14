@@ -133,6 +133,15 @@ fun RecordsTransectsView(
         viewModel.clearErrorMessage()
     }
 
+    // Show ok messages in a Snackbar if there's an action that requires to show a message
+    LaunchedEffect(state.okMessage) {
+        state.okMessage?.let {
+            snackbarHostState.showSnackbar(it)
+        }
+
+        viewModel.clearOkMessage()
+    }
+
     // Define the layout using Scaffold
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
