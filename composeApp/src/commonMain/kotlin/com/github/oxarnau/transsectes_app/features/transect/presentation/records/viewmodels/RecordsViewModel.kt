@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.core.domain.Result
+import com.github.oxarnau.transsectes_app.core.domain.usecases.SaveTransectAsCSVUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetAllTransectsUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCurrentUserUseCase
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 
 /**
  * ViewModel for managing records-related actions and navigation in the Transects app.
@@ -27,6 +29,7 @@ import kotlinx.coroutines.launch
 class RecordsViewModel(
     private val getTransectByCurrentUserUseCase: GetTransectByCurrentUserUseCase,
     private val getAllTransectsUseCase: GetAllTransectsUseCase,
+    private val saveTransectAsCSVUseCase: SaveTransectAsCSVUseCase,
 ) : ViewModel() {
 
     // Mutable SharedFlow that emits navigation events to different routes.
@@ -61,7 +64,15 @@ class RecordsViewModel(
     fun onIntent(intent: RecordsIntent) {
         when (intent) {
             is RecordsIntent.onRemoveClick -> navigate(Route.RemoveTransects)  // Navigate to Remove Transects screen
-            is RecordsIntent.onDownloadClick -> navigate(Route.DonwloadTransects)  // Navigate to Download Transects screen
+            is RecordsIntent.onDownloadClick -> {
+                val fileName = Clock.System.now()
+
+                saveTransectAsCSVUseCase(
+                    fileName = "$fileName.csv",
+                    content = intent.content,
+                )
+            }
+
             is RecordsIntent.onMyTransectsClick -> {
                 fetchTransects(getTransectByCurrentUserUseCase)
                 navigate(Route.MyTransects)

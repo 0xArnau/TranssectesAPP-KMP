@@ -145,8 +145,12 @@ fun RecordsTransectsView(
                     IconButton(onClick = {
                         state.records.let {
                             val csvString = it.toCSV()
-                            // TODO
-                            println("CSV Generated: \n${csvString}") // Replace with file download logic
+
+                            viewModel.onIntent(
+                                RecordsIntent.onDownloadClick(
+                                    csvString
+                                )
+                            )
                         }
                     }) {
                         Icon(

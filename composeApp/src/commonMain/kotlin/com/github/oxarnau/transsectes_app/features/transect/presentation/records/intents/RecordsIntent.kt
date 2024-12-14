@@ -19,7 +19,7 @@ sealed interface RecordsIntent {
     /**
      * Intent triggered when the user clicks on the "Download" button.
      */
-    data object onDownloadClick : RecordsIntent
+    data class onDownloadClick(val content: String) : RecordsIntent
 
     /**
      * Intent triggered when the user clicks on the "Remove" button.
