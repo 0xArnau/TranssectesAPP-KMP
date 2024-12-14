@@ -1,6 +1,7 @@
 package com.github.oxarnau.transsectes_app.di
 
 import com.github.oxarnau.transsectes_app.core.domain.repositories.AuthRepository
+import com.github.oxarnau.transsectes_app.core.domain.usecases.SaveTransectAsCSVUseCase
 import com.github.oxarnau.transsectes_app.core.domain.usecases.SignInUseCase
 import com.github.oxarnau.transsectes_app.features.auth.data.datasources.remote.AuthFirebaseDataSourceImpl
 import com.github.oxarnau.transsectes_app.features.auth.data.repositoiries.AuthRepositoryImpl
@@ -59,6 +60,7 @@ val sharedModule = module {
     singleOf(::GetTransectByCurrentUserUseCase)
     singleOf(::SaveTransectUseCase)
     singleOf(::RemoveAllTransectsUseCase)
+    singleOf(::SaveTransectAsCSVUseCase)
 
     // View Models
     viewModelOf(::AuthViewModel)
