@@ -9,8 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,15 +26,20 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.features.transect.domain.entities.Coordinate
 import com.github.oxarnau.transsectes_app.features.transect.domain.entities.toCSV
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
@@ -178,7 +184,12 @@ fun TransectsDetailView(
                 }
 
                 item {
-                    GoToMapsItem()
+                    state.detailedRecord?.coordinates?.let { coordinates ->
+                        GoToMapsItem(
+                            coordinates = coordinates,
+                            snackbarHostState = snackbarHostState
+                        )
+                    }
                 }
             }
         }
@@ -223,19 +234,84 @@ fun formatSubtitle(first: String?, last: String?): String {
 }
 
 
+/**
+ * Displays a Google Maps direction URL with a title and an icon to copy the URL to the clipboard.
+ * The URL text is selectable, and only the copy icon is clickable.
+ * A snackbar notification is shown when the URL is copied to the clipboard.
+ *
+ * @param coordinates A list of [Coordinate] representing the route. Must include at least an origin and a destination.
+ * @param snackbarHostState A [SnackbarHostState] used to display a snackbar when the URL is copied to the clipboard.
+ */
 @Composable
-fun GoToMapsItem() {
+fun GoToMapsItem(
+    coordinates: List<Coordinate>,
+    snackbarHostState: SnackbarHostState
+) {
+    val clipboardManager = LocalClipboardManager.current
+
+    // Exit early if no coordinates are provided.
+    if (coordinates.isEmpty()) return
+
+    // Extract origin, destination, and waypoints from the coordinates list.
+    val origin = coordinates.first()
+    val destination = coordinates.last()
+    val waypoints = coordinates.drop(1).dropLast(1)
+    val waypointsString =
+        waypoints.joinToString("|") { "${it.latitude},${it.longitude}" }
+
+    println("waypoints: $waypoints")
+    println("waypointsString: $waypointsString")
+
+    // Construct the Google Maps direction URL.
+    val url =
+        "https://www.google.com/maps/dir/?api=1&origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&waypoints=$waypointsString"
+
+    // State to track whether the copy icon was clicked.
+    val isClicked = remember { mutableStateOf(false) }
+
+    // Trigger a snackbar message when the URL is copied to the clipboard.
+    LaunchedEffect(isClicked.value) {
+        if (isClicked.value) {
+            snackbarHostState.showSnackbar("URL copied to clipboard") // TODO: i18n
+            isClicked.value = false
+        }
+    }
+
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { println("GoToMapsItem clicked") }, // TODO
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            "See transect on map (coordinates)",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold
-        ) // TODO: i18n
-        Icon(Icons.Filled.ChevronRight, contentDescription = null) // TODO
+        // Title and selectable text section.
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = "Coordinates (Google Maps)", // Title for the URL.
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            SelectionContainer {
+                Text(
+                    text = url,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+
+        // Copy icon.
+        Icon(
+            imageVector = Icons.Default.ContentCopy,
+            contentDescription = "Copy URL",
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .clickable {
+                    clipboardManager.setText(AnnotatedString(url)) // Copy URL to clipboard.
+                    isClicked.value = true
+                }
+        )
     }
 }
