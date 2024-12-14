@@ -35,4 +35,8 @@ sealed interface RecordsIntent {
      * Intent triggered when the user clicks on the "Transect" card.
      */
     data class onTransectClick(val index: Int) : RecordsIntent
+
+    data object fetchMyTransects : RecordsIntent
+
+    data object fetchAllTransects : RecordsIntent
 }

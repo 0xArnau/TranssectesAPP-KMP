@@ -8,6 +8,7 @@ import com.github.oxarnau.transsectes_app.core.domain.usecases.SaveTransectAsCSV
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetAllTransectsUseCase
 import com.github.oxarnau.transsectes_app.features.transect.domain.usecases.GetTransectByCurrentUserUseCase
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
+import com.github.oxarnau.transsectes_app.features.transect.presentation.records.states.RecordsOwner
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.states.RecordsState
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,9 +51,9 @@ class RecordsViewModel(
      * Initializes the ViewModel, setting up any initial state or logic.
      * Currently only prints a message indicating initialization.
      */
-    init {
-        initializeRecordsState()
-    }
+//    init {
+//        initializeRecordsState()
+//    }
 
     /**
      * Handles user intents by triggering corresponding navigation actions.
@@ -77,12 +78,10 @@ class RecordsViewModel(
             }
 
             is RecordsIntent.onMyTransectsClick -> {
-                fetchTransects(getTransectByCurrentUserUseCase)
                 navigate(Route.MyTransects)
             }
 
             is RecordsIntent.onAllTransectsClick -> {
-                fetchTransects(getAllTransectsUseCase)
                 navigate(Route.AllTransects)
             }
 
@@ -110,6 +109,22 @@ class RecordsViewModel(
 
                 // navigate to detailed route
                 navigate(Route.DetailedTransect)
+            }
+
+            RecordsIntent.fetchAllTransects -> {
+                if (_state.value.recordsOwner != RecordsOwner.TECHNICIAN) {
+                    fetchTransects(getAllTransectsUseCase)
+                    _state.update { it.copy(recordsOwner = RecordsOwner.TECHNICIAN) }
+                }
+                println("fetchAllTransects: ${_state.value}") // TODO: remove
+            }
+
+            RecordsIntent.fetchMyTransects -> {
+                if (_state.value.recordsOwner != RecordsOwner.USER) {
+                    fetchTransects(getTransectByCurrentUserUseCase)
+                    _state.update { it.copy(recordsOwner = RecordsOwner.USER) }
+                }
+                println("fetchMyTransects: ${_state.value}") // TODO: remove
             }
         }
     }
