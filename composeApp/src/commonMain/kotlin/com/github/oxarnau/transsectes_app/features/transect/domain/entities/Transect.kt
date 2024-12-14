@@ -37,7 +37,7 @@ fun Transect.toCSV(): String {
         informedPeople.toString(),
         observations.replace("\"", "\"\""), // Escape quotes
         tractor.toString()
-    ).joinToString(",") { it ?: "" } // Null-safe
+    ).joinToString(";") { it ?: "" } // Null-safe
 }
 
 /**
@@ -61,7 +61,7 @@ fun List<Transect>.toCSV(): String {
         "informedPeople",
         "observations",
         "tractor"
-    ).joinToString(",")
+    ).joinToString(";")
 
     val rows = this.map { it.toCSV() }
 
