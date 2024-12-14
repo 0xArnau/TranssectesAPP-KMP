@@ -37,7 +37,7 @@ fun Transect.toCSV(): String {
         informedPeople.toString(),
         observations.replace("\"", "\"\""), // Escape quotes
         tractor.toString()
-    ).joinToString(",") { it ?: "" } + "\n" // Null-safe, add newline at the end
+    ).joinToString(",") { it ?: "" } // Null-safe
 }
 
 /**
@@ -47,7 +47,7 @@ fun Transect.toCSV(): String {
  * @receiver List<Transect> The list of Transect entities to be converted.
  * @return A list of strings representing the CSV lines, including headers.
  */
-fun List<Transect>.toCSV(): List<String> {
+fun List<Transect>.toCSV(): String {
     val headers = listOf(
         "administrativeAreaFirst",
         "administrativeAreaLast",
@@ -61,9 +61,13 @@ fun List<Transect>.toCSV(): List<String> {
         "informedPeople",
         "observations",
         "tractor"
-    ).joinToString(",") + "\n"
+    ).joinToString(",")
 
     val rows = this.map { it.toCSV() }
 
-    return listOf(headers) + rows
+    return headers + "\n" + rows.toStringWithNewlines()
+}
+
+private fun List<String>.toStringWithNewlines(): String {
+    return this.joinToString("\n")
 }

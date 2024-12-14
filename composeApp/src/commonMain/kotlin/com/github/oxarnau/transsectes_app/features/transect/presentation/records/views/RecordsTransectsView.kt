@@ -45,6 +45,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.features.transect.domain.entities.toCSV
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.navigation.TransectRecordsGraph
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
@@ -140,7 +141,21 @@ fun RecordsTransectsView(
             TopAppBar(
                 { viewModel.onIntent(RecordsIntent.onGoBackClick) },
                 scrollBehavior,
-                "Transects"
+                "Transects",
+                actions = {
+                    IconButton(onClick = {
+                        state.records.let {
+                            val csvString = it.toCSV()
+                            // TODO
+                            println("CSV Generated: \n${csvString}") // Replace with file download logic
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Download,
+                            contentDescription = "Download CSV"
+                        )
+                    }
+                },
             )
         },
         bottomBar = {
