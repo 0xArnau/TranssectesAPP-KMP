@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Person2
 import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Person2
 import androidx.compose.material.icons.outlined.Remove
@@ -159,11 +158,13 @@ fun RecordsTransectsView(
             )
         },
         bottomBar = {
-            BottomNavigationBar(
-                items = items,
-                navController = navControllerGraph,
-                onClick = { intent -> viewModel.onIntent(intent) }
-            )
+            if (items.size > 1) {
+                BottomNavigationBar(
+                    items = items,
+                    navController = navControllerGraph,
+                    onClick = { intent -> viewModel.onIntent(intent) }
+                )
+            }
         }
     ) { innerPadding ->
         if (state.isLoading) {
@@ -208,13 +209,6 @@ fun getBottomNavigationItems(): List<BottomItem> {
                 RecordsIntent.onAllTransectsClick
             ),
             BottomItem(
-                "Download",
-                Icons.Filled.Download,
-                Icons.Outlined.Download,
-                Route.DonwloadTransects,
-                RecordsIntent.onDownloadClick
-            ),
-            BottomItem(
                 "Remove",
                 Icons.Filled.Remove,
                 Icons.Outlined.Remove,
@@ -230,13 +224,6 @@ fun getBottomNavigationItems(): List<BottomItem> {
                 Icons.Outlined.Person,
                 Route.MyTransects,
                 RecordsIntent.onMyTransectsClick
-            ),
-            BottomItem(
-                "Download",
-                Icons.Filled.Download,
-                Icons.Outlined.Download,
-                Route.DonwloadTransects,
-                RecordsIntent.onDownloadClick
             ),
         )
     }
