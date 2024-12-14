@@ -94,6 +94,7 @@ fun RecordsTransectsView(
 
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
+    val navBackStackEntry by navControllerGraph.currentBackStackEntryAsState()
 
     // Handle navigation actions from the ViewModel
     LaunchedEffect(viewModel.navigation) {
@@ -142,21 +143,23 @@ fun RecordsTransectsView(
                 scrollBehavior,
                 "Transects",
                 actions = {
-                    IconButton(onClick = {
-                        state.records.let {
-                            val csvString = it.toCSV()
+                    if (showDownloadAction(navBackStackEntry?.destination)) {
+                        IconButton(onClick = {
+                            state.records.let {
+                                val csvString = it.toCSV()
 
-                            viewModel.onIntent(
-                                RecordsIntent.onDownloadClick(
-                                    csvString
+                                viewModel.onIntent(
+                                    RecordsIntent.onDownloadClick(
+                                        csvString
+                                    )
                                 )
+                            }
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Download,
+                                contentDescription = "Download CSV"
                             )
                         }
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.Download,
-                            contentDescription = "Download CSV"
-                        )
                     }
                 },
             )
@@ -320,4 +323,25 @@ fun RowScope.AddItem(
         },
         label = { Text(item.title) }
     )
+}
+
+
+/**
+ * Determines if the current navigation destination should show the download action.
+ *
+ * This function checks whether the current destination is one of the specified routes
+ * ("MyTransectsView" or "AllTransectsView"). If so, it returns `true`, indicating
+ * that the download action should be shown. Otherwise, it returns `false`.
+ *
+ * @param currentDestination The current navigation destination.
+ * @return `true` if the current destination is either "MyTransectsView" or "AllTransectsView",
+ *         otherwise `false`.
+ */
+private fun showDownloadAction(currentDestination: NavDestination?): Boolean {
+    val routes =
+        listOf(Route.MyTransects.toString(), Route.AllTransects.toString())
+
+    return currentDestination?.hierarchy?.any {
+        (it.route?.split('.')?.lastOrNull() ?: "") in routes
+    } == true
 }
