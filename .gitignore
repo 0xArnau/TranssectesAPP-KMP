@@ -19,3 +19,6 @@ captures
 
 *google-services.json
 iosApp/iosApp/GoogleService-Info.plist
+
+*gradle.properties
+*secrets.properties
