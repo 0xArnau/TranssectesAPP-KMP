@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.oxarnau.transsectes_app.app.navigation.Route
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
-import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.DownloadTransectsView
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.RemoveTransectsView
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.TransectsListView
 
@@ -38,11 +37,7 @@ fun TransectRecordsGraph(
         composable<Route.AllTransects> {
             TransectsListView(innerPadding, recordsViewModel)
         }
-
-        composable<Route.DonwloadTransects> {
-            DownloadTransectsView(innerPadding)
-        }
-
+        
         composable<Route.RemoveTransects> {
             RemoveTransectsView(innerPadding)
         }
