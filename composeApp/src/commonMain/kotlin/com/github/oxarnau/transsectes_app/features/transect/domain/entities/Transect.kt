@@ -16,3 +16,54 @@ data class Transect(
     val observations: String,
     val tractor: Boolean,
 )
+
+/**
+ * Converts a single Transect entity into a CSV-formatted string.
+ *
+ * @receiver Transect The Transect entity to be converted.
+ * @return A CSV-formatted string representing the Transect entity.
+ */
+fun Transect.toCSV(): String {
+    return listOf(
+        administrativeAreaFirst,
+        administrativeAreaLast,
+        localityAreaFirst,
+        localityAreaLast,
+        subAdministrativeAreaFirst,
+        subAdministrativeAreaLast,
+        coordinates.toString(),
+        createdAt.toString(),
+        createdBy,
+        informedPeople.toString(),
+        observations.replace("\"", "\"\""), // Escape quotes
+        tractor.toString()
+    ).joinToString(",") { it ?: "" } + "\n" // Null-safe, add newline at the end
+}
+
+/**
+ * Converts a list of Transect entities into a list of CSV-formatted lines.
+ * The first line contains the CSV headers.
+ *
+ * @receiver List<Transect> The list of Transect entities to be converted.
+ * @return A list of strings representing the CSV lines, including headers.
+ */
+fun List<Transect>.toCSV(): List<String> {
+    val headers = listOf(
+        "administrativeAreaFirst",
+        "administrativeAreaLast",
+        "localityAreaFirst",
+        "localityAreaLast",
+        "subAdministrativeAreaFirst",
+        "subAdministrativeAreaLast",
+        "coordinates",
+        "createdAt",
+        "createdBy",
+        "informedPeople",
+        "observations",
+        "tractor"
+    ).joinToString(",") + "\n"
+
+    val rows = this.map { it.toCSV() }
+
+    return listOf(headers) + rows
+}

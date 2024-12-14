@@ -228,10 +228,12 @@ fun getBottomNavigationItems(): List<BottomItem> {
 }
 
 /**
- * Renders the top app bar with a title and navigation icon.
+ * Renders the top app bar with a title, navigation icon, and optional actions.
  *
- * @param navController The NavHostController to manage navigation.
+ * @param emitIntent The function to handle navigation icon clicks.
  * @param scrollBehavior The behavior for handling scrolling actions.
+ * @param label The label to display as the title of the top app bar.
+ * @param actions A composable function for rendering optional actions in the app bar.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -239,6 +241,7 @@ fun TopAppBar(
     emitIntent: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     label: String,
+    actions: @Composable (RowScope.() -> Unit) = {}
 ) {
     MediumTopAppBar(
         title = {
@@ -249,7 +252,6 @@ fun TopAppBar(
             )
         },
         navigationIcon = {
-            // TODO: emit an intent
             IconButton(onClick = { emitIntent() }) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
@@ -257,6 +259,7 @@ fun TopAppBar(
                 )
             }
         },
+        actions = actions,
         scrollBehavior = scrollBehavior
     )
 }

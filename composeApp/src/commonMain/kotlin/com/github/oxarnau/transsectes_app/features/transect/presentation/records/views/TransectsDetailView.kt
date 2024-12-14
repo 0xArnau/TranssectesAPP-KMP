@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Download
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -32,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.github.oxarnau.transsectes_app.app.navigation.Route
+import com.github.oxarnau.transsectes_app.features.transect.domain.entities.toCSV
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.intents.RecordsIntent
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 
@@ -77,7 +80,21 @@ fun TransectsDetailView(
             TopAppBar(
                 { viewModel.onIntent(RecordsIntent.onGoBackClick) },
                 scrollBehavior,
-                "Transects Detail"
+                "Transects Detail",
+                actions = {
+                    IconButton(onClick = {
+                        state.detailedRecord?.let {
+                            val csvString = it.toCSV()
+                            // TODO
+                            println("CSV Generated: \n${csvString}") // Replace with file download logic
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Download,
+                            contentDescription = "Download CSV"
+                        )
+                    }
+                },
             )
         },
     ) { innerPadding ->
