@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -38,8 +37,6 @@ kotlin {
             )
         }
     }
-
-    jvm("desktop")
 
     sourceSets {
         androidMain.dependencies {
@@ -112,16 +109,4 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-}
-
-compose.desktop {
-    application {
-        mainClass = "com.github.oxarnau.transsectes_app.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.github.oxarnau.transsectes_app"
-            packageVersion = "1.0.0"
-        }
-    }
 }
