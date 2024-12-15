@@ -40,6 +40,7 @@ import transsectesapp.composeapp.generated.resources.walk
 @Composable
 fun HomeView(
     navigate2HowTo: () -> Unit,
+    navigate2Start: () -> Unit,
     navigate2Records: () -> Unit,
     navigate2Contact: () -> Unit,
     navigate2Settings: () -> Unit,
@@ -78,6 +79,7 @@ fun HomeView(
         ScrollContent(
             innerPadding,
             navigate2HowTo,
+            navigate2Start,
             navigate2Records,
             navigate2Contact
         )
@@ -89,6 +91,7 @@ fun HomeView(
 fun ScrollContent(
     innerPadding: PaddingValues,
     navigate2HowTo: () -> Unit,
+    navigate2Start: () -> Unit,
     navigate2Records: () -> Unit,
     navigate2Contact: () -> Unit,
 ) {
@@ -117,7 +120,7 @@ fun ScrollContent(
                 text = stringResource(Res.string.home_start),
                 size = 164.dp
             ) {
-                TODO()
+                navigate2Start()
             }
         }
         item {

@@ -75,4 +75,7 @@ sealed interface Route {
 
     @Serializable
     data object DetailedTransect : Route
+
+    @Serializable
+    data object StartTransect : Route
 }

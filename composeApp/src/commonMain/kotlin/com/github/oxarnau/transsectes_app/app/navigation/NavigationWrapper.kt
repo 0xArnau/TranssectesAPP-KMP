@@ -20,6 +20,7 @@ import com.github.oxarnau.transsectes_app.features.splash.presentation.view.Spla
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.viewmodels.RecordsViewModel
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.RecordsTransectsView
 import com.github.oxarnau.transsectes_app.features.transect.presentation.records.views.TransectsDetailView
+import com.github.oxarnau.transsectes_app.features.transect.presentation.start.views.StartTransectView
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -61,6 +62,7 @@ fun NavigationWrapper() {
         composable<Route.Home> {
             HomeView(
                 navigate2HowTo = { navController.navigate(Route.HowTo1) },
+                navigate2Start = { navController.navigate(Route.StartTransect) },
                 navigate2Records = { navController.navigate(Route.RecordsTransects) },
                 navigate2Contact = { navController.navigate(Route.Contact) }
             ) { navController.navigate(Route.Settings) }
@@ -134,6 +136,10 @@ fun NavigationWrapper() {
 
         composable<Route.DetailedTransect> {
             TransectsDetailView(navController, recordsViewModel)
+        }
+
+        composable<Route.StartTransect> {
+            StartTransectView(navController)
         }
     }
 }
