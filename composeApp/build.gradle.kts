@@ -78,6 +78,14 @@ kotlin {
             implementation(libs.material.icons.extended)
 
             implementation(libs.kotlinx.datetime)
+
+            // Geocoding
+            implementation(libs.compass.geocoder)
+            implementation(libs.compass.geocoder.mobile)
+
+            // Geolocation
+            implementation(libs.compass.geolocation)
+            implementation(libs.compass.geolocation.mobile)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
