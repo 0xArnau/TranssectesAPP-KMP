@@ -42,8 +42,6 @@ kotlin {
     jvm("desktop")
 
     sourceSets {
-        val desktopMain by getting
-
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -86,12 +84,6 @@ kotlin {
             // Geolocation
             implementation(libs.compass.geolocation)
             implementation(libs.compass.geolocation.mobile)
-        }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutines.swing)
-
-            implementation(libs.ktor.client.okhttp)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
